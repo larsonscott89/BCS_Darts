@@ -31,3 +31,5 @@
 ## Stretch Goals
 ##### Finish out all leagues with different statistics for each league. 
 ##### Try to implament the machine learning to read and automatically fill out the form from a picture.
+##### Make it easy for an admin to edit the home page for when they have events or any other announcements.
+##### Create a calendar that can be edited by an admin user.
