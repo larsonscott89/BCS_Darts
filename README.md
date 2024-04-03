@@ -13,5 +13,5 @@
 ### Drop downs for team members that are a part of that team
 ### 
 ## ERD
-![Entity Relationship Diagram](assets/Screenshot 2024-04-03 at 1.06.03 AM.jpeg "Entity Relationship Diagram")
+![Alt text](ERD-with-mongoDB.png?raw=true "MongoDB")
 ## Figma
