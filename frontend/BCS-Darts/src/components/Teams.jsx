@@ -1,31 +1,55 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export default function Team () {
+export default function Team() {
   const [teams, setTeams] = useState([])
+  const [leagues, setLeagues] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const getTeams = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/teams')
-        setTeams(response.data)
+        const teamsResponse = await axios.get('http://localhost:3001/teams')
+        const leaguesResponse = await axios.get('http://localhost:3001/leagues')
+        setTeams(teamsResponse.data)
+        setLeagues(leaguesResponse.data)
       } catch (error) {
-        console.error('Error fetching teams:', error)
+        console.error('Error fetching data:', error)
+      } finally {
+        setIsLoading(false)
       }
-    }
-    getTeams()
+    };
+
+    fetchData()
   }, [])
-  return(
+
+  if (isLoading || teams.length === 0 || leagues.length === 0) {
+    return <div>Loading...</div>
+  }
+
+  return (
     <div>
       <h1>Teams</h1>
       <div>
-        {teams.map((team, index) => (
-          <div className='league list' key={index}>
-            <h2>{team.team_name}</h2>
-            <p>Team Captain: {team.team_captain}</p>
-            <p>Team Members: {team.other_team_members}</p>
-          </div>
-        ))}
+        {teams.map((team, index) => {
+          const foundLeague = leagues.find(league => league._id === team.league_id)
+          const teamMembers = team.other_team_members[0].split(',').map(member => member.trim())
+          return (
+            <div className='team-list' key={index}>
+              <h1>{team.team_name}</h1>
+              <h3>
+                League: {foundLeague ? foundLeague.league_name : 'Unknown League'}
+              </h3>
+              <h5>Team Captain: <li>{team.team_captain}</li></h5>
+              <h5>Team Members:</h5>
+              <h5>
+                {teamMembers.map((member, idx) => (
+                  <li key={idx}>{member}</li>
+                ))}
+              </h5>
+            </div>
+          )
+        })}
       </div>
     </div>
   )

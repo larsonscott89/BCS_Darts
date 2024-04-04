@@ -21,6 +21,17 @@ const getTeams = async (req, res) => {
   }
 }
 
+const getTeamById = async (req,res) => {
+  try {
+      const team = await Teams.findById(req.params.id).populate()
+      if (team) {
+          res.json(team)
+      }
+  } catch (error) {
+      return res.status(500).send('Collection with the specified ID does not exists');
+  }
+}
+
 const updateTeam = async (req, res) => {
   try {
     let { id } = req.params
@@ -50,5 +61,6 @@ module.exports = {
   createTeam,
   getTeams,
   updateTeam,
-  deleteTeam
+  deleteTeam,
+  getTeamById
 }

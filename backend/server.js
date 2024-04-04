@@ -34,7 +34,9 @@ app.post('/user', userController.createUser)
 
 // Read
 app.get('/leagues', leagueController.getLeague)
+app.get('/leagues/:id', leagueController.getLeagueById)
 app.get('/teams', teamController.getTeams)
+app.get('/teams/:id', teamController.getTeamById)
 app.get('/players', playerController.getPlayer)
 app.get('/sublist', sublistController.getSublist)
 app.get('/scoresheet', scoresheetController.getScoresheet)

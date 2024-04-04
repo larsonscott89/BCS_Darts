@@ -22,6 +22,17 @@ const getLeague = async (req, res) => {
   }
 }
 
+const getLeagueById = async (req,res) => {
+  try {
+      const league = await Leagues.findById(req.params.id).populate()
+      if (league) {
+          res.json(league)
+      }
+  } catch (error) {
+      return res.status(500).send('Collection with the specified ID does not exists');
+  }
+}
+
 const updateLeague = async (req, res) => {
   try {
     let { id } = req.params
@@ -51,5 +62,6 @@ module.exports = {
   getLeague,
   createLeague,
   updateLeague,
-  deleteLeague
+  deleteLeague,
+  getLeagueById
 }
