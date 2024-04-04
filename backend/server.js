@@ -26,6 +26,11 @@ app.listen(PORT, () => {
 
 // Create
 app.post('/leagues', leagueController.createLeague)
+app.post('/teams', teamController.createTeam)
+app.post('/players', playerController.createPlayer)
+app.post('/sublist', sublistController.createSublist)
+app.post('/scoresheet', scoresheetController.createScoresheet)
+app.post('/user', userController.createUser)
 
 // Read
 app.get('/leagues', leagueController.getLeague)
@@ -37,9 +42,19 @@ app.get('/user', userController.getUser)
 
 // Update
 app.put('/leagues/:id', leagueController.updateLeague)
+app.put('/teams/:id', teamController.updateTeam)
+app.put('/players/:id', playerController.updatePlayer)
+app.put('/sublist/:id', sublistController.updateSublist)
+app.put('/scoresheet/:id', scoresheetController.updateScoresheet)
+app.put('/user/:id', userController.updateUser)
 
 // Delete
 app.delete('/leagues/:id', leagueController.deleteLeague)
+app.delete('/teams/:id', teamController.deleteTeam)
+app.delete('/players/:id', playerController.deletePlayer)
+app.delete('/sublist/:id', sublistController.deleteSublist)
+app.delete('/scoresheet/:id', scoresheetController.deleteScoresheet)
+app.delete('/user/:id', userController.deleteUser)
 
 
 app.get('/*', async (req,res) => {
