@@ -17,4 +17,6 @@ const ScoresheetSchema = new mongoose.Schema({
     scoresheet_picture: {type: String, required: true}
 }, {timestamps: true})
 
-module.exports = mongoose.model('Scoresheet', ScoresheetSchema)
+const Scoresheet = mongoose.model('Scoresheet', ScoresheetSchema)
+
+module.exports = Scoresheet
