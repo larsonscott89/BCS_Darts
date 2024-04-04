@@ -4,6 +4,7 @@ import Header from './Header'
 import Home from './Home'
 import Leagues from './Leagues'
 import Teams from './Teams'
+import Signup from './Signup'
 
 export default function Main () {
   const [leagues, setLeagues] = useState([])
@@ -19,6 +20,7 @@ export default function Main () {
         <Route path='/' element={<Home/>}/>
         <Route path='/leagues' element={<Leagues/>}/>
         <Route path='/teams' element={<Teams/>}/>
+        <Route path='/teamsignups' element={<Signup/>}/>
       </Routes>
     </div>
   )

@@ -29,6 +29,9 @@ export default function Nav() {
             <Link to='/teams' className='nav-text'>
               Teams
             </Link>
+            <Link to='/teamsignups' className='nav-text'>
+              Team Sign-Ups
+            </Link>
           </li>
         </ul>
       </nav>
