@@ -1,71 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 export default function Signup() {
   const [formData, setFormData] = useState({
-    league_id: '', // You may need to fetch league IDs from the backend
+    league_id: '',
     team_name: '',
     team_captain: '',
-    other_team_members: [] // Initial empty string for team members
-  });
+    other_team_members: []
+  })
   const [leagues, setLeagues] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchLeagues = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/leagues');
+        const response = await axios.get('http://localhost:3001/leagues')
         setLeagues(response.data);
       } catch (error) {
-        console.error('Error fetching leagues:', error);
+        console.error('Error fetching leagues:', error)
       } finally {
-        setIsLoading(false);
+        setIsLoading(false)
       }
     };
 
-    fetchLeagues();
-  }, []);
+    fetchLeagues()
+  }, [])
+
+  useEffect(() => {
+    if (formData.league_id !== '') {
+      const selectedLeague = leagues.find(league => league._id === formData.league_id)
+      setFormData(prevState => ({
+        ...prevState,
+        other_team_members: Array(selectedLeague.number_of_players - 1).fill('')
+      }));
+    }
+  }, [formData.league_id, leagues])
 
   const handleChange = (e) => {
     if (e.target.name === 'other_team_members') {
-      const updatedTeamMembers = [...formData.other_team_members];
-      updatedTeamMembers[parseInt(e.target.dataset.index)] = e.target.value;
-      setFormData({ ...formData, other_team_members: updatedTeamMembers });
+      const updatedTeamMembers = [...formData.other_team_members]
+      updatedTeamMembers[parseInt(e.target.dataset.index)] = e.target.value
+      setFormData({ ...formData, other_team_members: updatedTeamMembers })
     } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
+      setFormData({ ...formData, [e.target.name]: e.target.value })
     }
   }
 
-  const handleAddMember = () => {
-    setFormData({ ...formData, other_team_members: [...formData.other_team_members, ''] });
-  };
-
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    // Check if any required fields are empty
+    e.preventDefault()
+
     if (formData.league_id === '' || formData.team_name === '' || formData.team_captain === '' || formData.other_team_members.some(member => member === '')) {
-      alert('Please fill in all required fields.');
-      return;
+      alert('Please fill in all required fields.')
+      return
     }
-  
+
     try {
-      const response = await axios.post('http://localhost:3001/teams', formData);
-      console.log('Team signed up successfully:', response.data);
-      
-      // Reset form fields
+      const response = await axios.post('http://localhost:3001/teams', formData)
+      console.log('Team signed up successfully:', response.data)
+
       setFormData({
         league_id: '',
         team_name: '',
         team_captain: '',
-        other_team_members: ['']
+        other_team_members: []
       });
-      
-      // Display success message or redirect the user
+
     } catch (error) {
-      console.error('Error signing up team:', error);
+      console.error('Error signing up team:', error)
     }
-  }
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -124,10 +127,9 @@ export default function Signup() {
               placeholder={`Team Member ${index + 1}`}
             />
           ))}
-          <button type="button" onClick={handleAddMember}>Add Member</button>
         </div>
         <button type="submit">Sign Up</button>
       </form>
     </div>
-  );
+  )
 }
