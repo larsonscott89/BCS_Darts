@@ -5,6 +5,7 @@ import Home from './Home'
 import Leagues from './Leagues'
 import Teams from './Teams'
 import Signup from './Signup'
+import Players from './Players'
 
 export default function Main () {
   const [leagues, setLeagues] = useState([])
@@ -21,6 +22,7 @@ export default function Main () {
         <Route path='/leagues' element={<Leagues/>}/>
         <Route path='/teams' element={<Teams/>}/>
         <Route path='/teamsignups' element={<Signup/>}/>
+        <Route path='/players' element={<Players/>}/>
       </Routes>
     </div>
   )

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -7,56 +7,58 @@ export default function Signup() {
     team_name: '',
     team_captain: '',
     other_team_members: []
-  })
+  });
   const [leagues, setLeagues] = useState([]);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchLeagues = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/leagues')
+        const response = await axios.get('http://localhost:3001/leagues');
         setLeagues(response.data);
       } catch (error) {
-        console.error('Error fetching leagues:', error)
+        console.error('Error fetching leagues:', error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     };
 
-    fetchLeagues()
-  }, [])
+    fetchLeagues();
+  }, []);
 
   useEffect(() => {
     if (formData.league_id !== '') {
-      const selectedLeague = leagues.find(league => league._id === formData.league_id)
+      const selectedLeague = leagues.find(league => league._id === formData.league_id);
+      const numberOfPlayers = selectedLeague ? selectedLeague.number_of_players : 0;
       setFormData(prevState => ({
         ...prevState,
-        other_team_members: Array(selectedLeague.number_of_players - 1).fill('')
+        other_team_members: Array(numberOfPlayers - 1).fill('')
       }));
     }
-  }, [formData.league_id, leagues])
+  }, [formData.league_id, leagues]);
 
-  const handleChange = (e) => {
-    if (e.target.name === 'other_team_members') {
-      const updatedTeamMembers = [...formData.other_team_members]
-      updatedTeamMembers[parseInt(e.target.dataset.index)] = e.target.value
-      setFormData({ ...formData, other_team_members: updatedTeamMembers })
+  const handleChange = (e, index) => {
+    const { name, value } = e.target;
+    if (name === 'other_team_members') {
+      const updatedTeamMembers = [...formData.other_team_members];
+      updatedTeamMembers[index] = value;
+      setFormData({ ...formData, other_team_members: updatedTeamMembers });
     } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value })
+      setFormData({ ...formData, [name]: value });
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (formData.league_id === '' || formData.team_name === '' || formData.team_captain === '' || formData.other_team_members.some(member => member === '')) {
-      alert('Please fill in all required fields.')
-      return
+      alert('Please fill in all required fields.');
+      return;
     }
 
     try {
-      const response = await axios.post('http://localhost:3001/teams', formData)
-      console.log('Team signed up successfully:', response.data)
+      const response = await axios.post('http://localhost:3001/teams', formData);
+      console.log('Team signed up successfully:', response.data);
 
       setFormData({
         league_id: '',
@@ -64,9 +66,8 @@ export default function Signup() {
         team_captain: '',
         other_team_members: []
       });
-
     } catch (error) {
-      console.error('Error signing up team:', error)
+      console.error('Error signing up team:', error);
     }
   };
 
@@ -84,7 +85,7 @@ export default function Signup() {
             id="league_id"
             name="league_id"
             value={formData.league_id}
-            onChange={handleChange}
+            onChange={(e) => setFormData({ ...formData, league_id: e.target.value })}
           >
             <option value="">Select a League</option>
             {leagues.map((league) => (
@@ -101,7 +102,7 @@ export default function Signup() {
             id="team_name"
             name="team_name"
             value={formData.team_name}
-            onChange={handleChange}
+            onChange={(e) => setFormData({ ...formData, team_name: e.target.value })}
           />
         </div>
         <div>
@@ -111,7 +112,7 @@ export default function Signup() {
             id="team_captain"
             name="team_captain"
             value={formData.team_captain}
-            onChange={handleChange}
+            onChange={(e) => setFormData({ ...formData, team_captain: e.target.value })}
           />
         </div>
         <div>
@@ -121,8 +122,7 @@ export default function Signup() {
               type="text"
               key={index}
               value={member}
-              data-index={index}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e, index)}
               name="other_team_members"
               placeholder={`Team Member ${index + 1}`}
             />
@@ -131,5 +131,5 @@ export default function Signup() {
         <button type="submit">Sign Up</button>
       </form>
     </div>
-  )
+  );
 }

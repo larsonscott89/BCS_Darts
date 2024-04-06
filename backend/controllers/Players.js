@@ -1,4 +1,5 @@
 const Players = require('../models/Players')
+const Teams = require('../models/Teams')
 
 const createPlayer = async (req, res) => {
   try {
@@ -12,14 +13,31 @@ const createPlayer = async (req, res) => {
   }
   }
 
-const getPlayer = async (req, res) => {
-  try {
-    const players = await Players.find()
-    res.json(players)
-  } catch (error) {
-    return res.status(500).send(error.message)
+  const getPlayer = async (req, res) => {
+    try {
+      const allTeams = await Teams.find();
+      const uniquePlayersMap = new Map();
+  
+      allTeams.forEach(team => {
+        const captainName = team.team_captain;
+        if (!uniquePlayersMap.has(captainName)) {
+          uniquePlayersMap.set(captainName, { name: captainName });
+        }
+  
+        team.other_team_members.forEach(memberName => {
+          if (!uniquePlayersMap.has(memberName)) {
+            uniquePlayersMap.set(memberName, { name: memberName });
+          }
+        });
+      });
+  
+      const uniquePlayers = Array.from(uniquePlayersMap.values());
+  
+      res.json(uniquePlayers);
+    } catch (error) {
+      return res.status(500).send(error.message);
+    }
   }
-}
 
 const updatePlayer = async (req, res) => {
   try {
