@@ -43,13 +43,13 @@ export default function Team() {
               <h5>Team Captain: <li>{team.team_captain}</li></h5>
               <h5>Team Members:</h5>
               <h5>
-                {teamMembers.map((teamMember, idx) => (
-                  <div key={idx}>
-                    {teamMember.split(',').map((name, index) => (
-                      <li key={index}>{name.trim()}</li>
-                    ))}
-                  </div>
-                ))}
+              {teamMembers.map((teamMember, idx) => (
+  <div key={idx}>
+    {typeof teamMember === 'string' && teamMember.split(',').map((name, index) => (
+      <li key={index}>{name.trim()}</li>
+    ))}
+  </div>
+))}
               </h5>
             </div>
           );

@@ -16,6 +16,7 @@ const createPlayer = async (req, res) => {
   const getPlayer = async (req, res) => {
     try {
       const allTeams = await Teams.find();
+  
       const uniquePlayersMap = new Map();
   
       allTeams.forEach(team => {
@@ -24,11 +25,10 @@ const createPlayer = async (req, res) => {
           uniquePlayersMap.set(captainName, { name: captainName });
         }
   
-        team.other_team_members.forEach(memberName => {
-          if (!uniquePlayersMap.has(memberName)) {
-            uniquePlayersMap.set(memberName, { name: memberName });
-          }
-        });
+        const memberName = team.other_team_members;
+        if (!uniquePlayersMap.has(memberName)) {
+          uniquePlayersMap.set(memberName, { name: memberName });
+        }
       });
   
       const uniquePlayers = Array.from(uniquePlayersMap.values());
