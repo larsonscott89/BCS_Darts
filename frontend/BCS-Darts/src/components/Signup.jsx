@@ -6,7 +6,9 @@ export default function Signup() {
     league_id: '',
     team_name: '',
     team_captain: '',
-    other_team_members: []
+    captain_cell_number: '',
+    captain_email: '',
+    other_team_members: [{ name: '', cell_number: '', email: '' }]
   });
   const [leagues, setLeagues] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,28 +32,42 @@ export default function Signup() {
     if (formData.league_id !== '') {
       const selectedLeague = leagues.find(league => league._id === formData.league_id);
       const numberOfPlayers = selectedLeague ? selectedLeague.number_of_players : 0;
+      const initialTeamMembers = Array.from({ length: numberOfPlayers - 1 }, () => ({ name: '', cell_number: '', email: '' }));
       setFormData(prevState => ({
         ...prevState,
-        other_team_members: Array(numberOfPlayers - 1).fill('')
+        other_team_members: initialTeamMembers
       }));
     }
   }, [formData.league_id, leagues]);
 
-  const handleChange = (e, index) => {
+  const handleChange = (e, index, field) => {
     const { name, value } = e.target;
-    if (name === 'other_team_members') {
+    if (field === 'name' || field === 'cell_number' || field === 'email') {
       const updatedTeamMembers = [...formData.other_team_members];
-      updatedTeamMembers[index] = value;
-      setFormData({ ...formData, other_team_members: updatedTeamMembers });
+      updatedTeamMembers[index][field] = value;
+      setFormData(prevState => ({
+        ...prevState,
+        other_team_members: updatedTeamMembers
+      }));
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
 
+  const handleTeamMemberNameChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedTeamMembers = [...formData.other_team_members];
+    updatedTeamMembers[index][name] = value;
+    setFormData(prevState => ({
+      ...prevState,
+      other_team_members: updatedTeamMembers
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.league_id === '' || formData.team_name === '' || formData.team_captain === '' || formData.other_team_members.some(member => member === '')) {
+    if (formData.league_id === '' || formData.team_name === '' || formData.team_captain === '' || formData.other_team_members.some(member => member.name === '')) {
       alert('Please fill in all required fields.');
       return;
     }
@@ -64,7 +80,9 @@ export default function Signup() {
         league_id: '',
         team_name: '',
         team_captain: '',
-        other_team_members: []
+        captain_cell_number: '',
+        captain_email: '',
+        other_team_members: [{ name: '', cell_number: '', email: '' }]
       });
     } catch (error) {
       console.error('Error signing up team:', error);
@@ -116,18 +134,52 @@ export default function Signup() {
           />
         </div>
         <div>
-          <label>Team Members:</label>
-          {formData.other_team_members.map((member, index) => (
+          <label htmlFor="captain_cell_number">Captain's Cell Number:</label>
+          <input
+            type="text"
+            id="captain_cell_number"
+            name="captain_cell_number"
+            value={formData.captain_cell_number}
+            onChange={(e) => setFormData({ ...formData, captain_cell_number: e.target.value })}
+          />
+        </div>
+        <div>
+          <label htmlFor="captain_email">Captain's Email:</label>
+          <input
+            type="email"
+            id="captain_email"
+            name="captain_email"
+            value={formData.captain_email}
+            onChange={(e) => setFormData({ ...formData, captain_email: e.target.value })}
+          />
+        </div>
+        <label>Team Members:</label>
+        {formData.other_team_members.map((member, index) => (
+          <div key={index}>
+            <label htmlFor={`team_member_${index}`}>Team Member {index + 1} Name:</label>
             <input
               type="text"
-              key={index}
-              value={member}
-              onChange={(e) => handleChange(e, index)}
-              name="other_team_members"
-              placeholder={`Team Member ${index + 1}`}
+              id={`team_member_${index}`}
+              name="name"  // <-- Make sure the name attribute is set to "name"
+              value={member.name}
+              onChange={(e) => handleTeamMemberNameChange(e, index)}
             />
-          ))}
-        </div>
+            <input
+              type="text"
+              value={member.cell_number}
+              onChange={(e) => handleChange(e, index, 'cell_number')}
+              name={`other_team_members_cell_${index}`}
+              placeholder={`Team Member ${index + 1} Cell Number`}
+            />
+            <input
+              type="email"
+              value={member.email}
+              onChange={(e) => handleChange(e, index, 'email')}
+              name={`other_team_members_email_${index}`}
+              placeholder={`Team Member ${index + 1} Email`}
+            />
+          </div>
+        ))}
         <button type="submit">Sign Up</button>
       </form>
     </div>

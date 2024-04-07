@@ -33,7 +33,6 @@ export default function Team() {
       <div>
         {teams.map((team, index) => {
           const foundLeague = leagues.find(league => league._id === team.league_id);
-          const teamMembers = Array.isArray(team.other_team_members) ? team.other_team_members : [team.other_team_members];
           return (
             <div className='team-list' key={index}>
               <h1>{team.team_name}</h1>
@@ -42,15 +41,15 @@ export default function Team() {
               </h3>
               <h5>Team Captain: <li>{team.team_captain}</li></h5>
               <h5>Team Members:</h5>
-              <h5>
-              {teamMembers.map((teamMember, idx) => (
-  <div key={idx}>
-    {typeof teamMember === 'string' && teamMember.split(',').map((name, index) => (
-      <li key={index}>{name.trim()}</li>
-    ))}
-  </div>
-))}
-              </h5>
+              {team.other_team_members && team.other_team_members.length > 0 ? (
+                <ul>
+                  {team.other_team_members.map((teamMember, idx) => (
+                    <li key={idx}>{teamMember.name}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No team members</p>
+              )}
             </div>
           );
         })}
