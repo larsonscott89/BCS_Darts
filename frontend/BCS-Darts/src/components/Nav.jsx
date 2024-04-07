@@ -35,6 +35,9 @@ export default function Nav() {
             <Link to='/teamsignups' className='nav-text'>
               Team Sign-Ups
             </Link>
+            <Link to='/scoresheets' className='nav-text'>
+              Scoresheets
+            </Link>
           </li>
         </ul>
       </nav>
