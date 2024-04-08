@@ -4,6 +4,7 @@ let uri = 'mongodb+srv://scottlarson0305:tZlxGbPF0w5iQ494@bcs-darts.izonpuu.mong
 
 mongoose
     .connect(uri)
+    
     .then(() => {
         console.log(`Successfully connected to ${uri}`)
     })

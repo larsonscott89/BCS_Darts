@@ -33,15 +33,16 @@ export default function Players() {
             <h2>{team.team_name}</h2>
             <h3>Team Captain:</h3>
             <h4>{team.team_captain}</h4>
-            <h4>{team.captain_cell_number}</h4>
-            <h4>{team.captain_email}</h4>
+            {team.captain_cell_number && <h4>Cell Number: {team.captain_cell_number}</h4>}
+            {team.captain_email && <h4>Email: {team.captain_email}</h4>}
             <h4>Players:</h4>
-            {team.other_team_members && team.other_team_members.length > 0 ? (
+            {team.members && team.members.length > 0 ? (
               <div>
-                {team.other_team_members.map((player, idx) => (
+                {team.members.map((player, idx) => (
                   <div key={player._id || idx}>
                     <h4>{player.name}</h4>
-                    <h4>{player.cell_number}</h4>
+                    {player.cell_number && <h4>Cell Number: {player.cell_number}</h4>}
+                    {player.email && <h4>Email: {player.email}</h4>}
                   </div>
                 ))}
               </div>

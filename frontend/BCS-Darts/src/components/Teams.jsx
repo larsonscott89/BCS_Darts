@@ -32,19 +32,32 @@ export default function Team() {
       <h1>Teams</h1>
       <div>
         {teams.map((team, index) => {
-          const foundLeague = leagues.find(league => league._id === team.league_id);
+          const foundLeague = leagues.find((league) => league._id === team.league_id);
           return (
             <div className='team-list' key={index}>
               <h1>{team.team_name}</h1>
               <h3>
                 League: {foundLeague ? foundLeague.league_name : 'Unknown League'}
               </h3>
-              <h5>Team Captain: <li>{team.team_captain}</li></h5>
+              <h5>Team Captain:</h5>
+              <ul>
+                <li>{team.members.find((member) => member.is_captain)?.name}</li>
+                {team.members.find((member) => member.is_captain)?.cell_number && (
+                  <li>Cell Number: {team.members.find((member) => member.is_captain).cell_number}</li>
+                )}
+                {team.members.find((member) => member.is_captain)?.email && (
+                  <li>Email: {team.members.find((member) => member.is_captain).email}</li>
+                )}
+              </ul>
               <h5>Team Members:</h5>
-              {team.other_team_members && team.other_team_members.length > 0 ? (
+              {team.members && team.members.length > 0 ? (
                 <ul>
-                  {team.other_team_members.map((teamMember, idx) => (
-                    <li key={idx}>{teamMember.name}</li>
+                  {team.members.map((teamMember, idx) => (
+                    <li key={idx}>
+                      {teamMember.name}
+                      {teamMember.cell_number && <span> - Cell Number: {teamMember.cell_number}</span>}
+                      {teamMember.email && <span> - Email: {teamMember.email}</span>}
+                    </li>
                   ))}
                 </ul>
               ) : (

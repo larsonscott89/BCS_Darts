@@ -4,18 +4,16 @@ const teamSchema = new mongoose.Schema(
   {
     league_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Leagues', required: true },
     team_name: { type: String, required: true },
-    team_captain: { type: String, required: true },
-    captain_cell_number: { type: String, required: true }, // Add captain's call number
-    captain_email: { type: String, required: true }, // Add captain's email
-    other_team_members: [{
+    members: [{
       name: { type: String, required: true },
       cell_number: { type: String, required: false },
-      email: { type: String, required: false }
+      email: { type: String, required: false },
+      is_captain: { type: Boolean, default: false }
     }]
   },
   { timestamps: true }
 )
 
-const Teams = mongoose.model('Teams', teamSchema)
+const Team = mongoose.model('Team', teamSchema)
 
-module.exports = Teams
+module.exports = Team
