@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 export default function Scoresheet() {
   const [formData, setFormData] = useState({
@@ -47,6 +48,76 @@ export default function Scoresheet() {
     league_id: '',
     week: ''
   })
+
+  const [teams, setTeams] = useState([]);
+  const [selectedTeam1, setSelectedTeam1] = useState('');
+  const [selectedTeam2, setSelectedTeam2] = useState('');
+  const [playersTeam1, setPlayersTeam1] = useState([]);
+  const [playersTeam2, setPlayersTeam2] = useState([]);
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/teams');
+        setTeams(response.data);
+      } catch (error) {
+        console.error('Error fetching teams:', error);
+      }
+    };
+    fetchTeams();
+  }, []);
+
+  const handleTeamChange = (event, teamNumber) => {
+    const selectedTeamId = event.target.value;
+    if (teamNumber === 1) {
+      setSelectedTeam1(selectedTeamId);
+      const team = teams.find(team => team._id === selectedTeamId);
+      if (team) {
+        setPlayersTeam1(team.members);
+        setFormData(prevState => ({
+          ...prevState,
+          team1: {
+            ...prevState.team1,
+            team_id: selectedTeamId
+          }
+        }));
+      }
+    } else if (teamNumber === 2) {
+      setSelectedTeam2(selectedTeamId);
+      const team = teams.find(team => team._id === selectedTeamId);
+      if (team) {
+        setPlayersTeam2(team.members);
+        setFormData(prevState => ({
+          ...prevState,
+          team2: {
+            ...prevState.team2,
+            team_id: selectedTeamId
+          }
+        }));
+      }
+    }
+  };
+
+  const handlePlayerChange = (event, teamNumber, index) => {
+    const selectedPlayerId = event.target.value;
+    if (teamNumber === 1) {
+      setFormData(prevState => ({
+        ...prevState,
+        team1: {
+          ...prevState.team1,
+          games: prevState.team1.games.map((game, i) => i === index ? { ...game, player_name: selectedPlayerId } : game)
+        }
+      }));
+    } else if (teamNumber === 2) {
+      setFormData(prevState => ({
+        ...prevState,
+        team2: {
+          ...prevState.team2,
+          games: prevState.team2.games.map((game, i) => i === index ? { ...game, player_name: selectedPlayerId } : game)
+        }
+      }));
+    }
+  }
 
   const handleGameChange = (team, index, field, value) => {
     const updatedGames = [...formData[team].games]
@@ -107,6 +178,12 @@ return (
     {/* Team 1 */}
     <div style={{ marginRight: '20px' }}>
       <h2>Team 1</h2>
+      <select value={selectedTeam1} onChange={(e) => handleTeamChange(e, 1)}>
+          <option value="">Select Team</option>
+          {teams.map(team => (
+            <option key={team._id} value={team._id}>{team.team_name}</option>
+          ))}
+        </select>
       {formData.team1.games.map((game, index) => (
         <div key={index}>
           {index === 0 || game.game_type !== formData.team1.games[index - 1].game_type ? (
@@ -123,15 +200,12 @@ return (
                   required
                 />
               </div>
-              <div style={{ marginRight: '20px' }}>
-                <label>Player Name:</label>
-                <input
-                  type="text"
-                  value={game.player_name}
-                  onChange={(e) => handleGameChange('team1', index, 'player_name', e.target.value)}
-                  required
-                />
-              </div>
+              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
+              <option value="">Select Player</option>
+              {playersTeam1.map(player => (
+                <option key={player._id} value={player._id}>{player.name}</option>
+              ))}
+            </select>
               <div style={{ marginRight: '20px' }}>
                 <label>Number of Darts:</label>
                 <input
@@ -175,15 +249,12 @@ return (
                   required
                 />
               </div>
-              <div style={{ marginRight: '20px' }}>
-                <label>Player Name:</label>
-                <input
-                  type="text"
-                  value={game.player_name}
-                  onChange={(e) => handleGameChange('team1', index, 'player_name', e.target.value)}
-                  required
-                />
-              </div>
+              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
+              <option value="">Select Player</option>
+              {playersTeam1.map(player => (
+                <option key={player._id} value={player._id}>{player.name}</option>
+              ))}
+            </select>
               <div>
                 <label>Result:</label>
                 <select
@@ -209,15 +280,12 @@ return (
                   required
                 />
               </div>
-              <div style={{ marginRight: '20px' }}>
-                <label>Player Name:</label>
-                <input
-                  type="text"
-                  value={game.player_name}
-                  onChange={(e) => handleGameChange('team1', index, 'player_name', e.target.value)}
-                  required
-                />
-              </div>
+              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
+              <option value="">Select Player</option>
+              {playersTeam1.map(player => (
+                <option key={player._id} value={player._id}>{player.name}</option>
+              ))}
+            </select>
               <div>
                 <label>Result:</label>
                 <select
@@ -243,15 +311,12 @@ return (
                   required
                 />
               </div>
-              <div style={{ marginRight: '20px' }}>
-                <label>Player Name:</label>
-                <input
-                  type="text"
-                  value={game.player_name}
-                  onChange={(e) => handleGameChange('team1', index, 'player_name', e.target.value)}
-                  required
-                />
-              </div>
+              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
+              <option value="">Select Player</option>
+              {playersTeam1.map(player => (
+                <option key={player._id} value={player._id}>{player.name}</option>
+              ))}
+            </select>
               <div>
                 <label>Result:</label>
                 <select
@@ -277,15 +342,12 @@ return (
                   required
                 />
               </div>
-              <div style={{ marginRight: '20px' }}>
-                <label>Player Name:</label>
-                <input
-                  type="text"
-                  value={game.player_name}
-                  onChange={(e) => handleGameChange('team1', index, 'player_name', e.target.value)}
-                  required
-                />
-              </div>
+              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
+              <option value="">Select Player</option>
+              {playersTeam1.map(player => (
+                <option key={player._id} value={player._id}>{player.name}</option>
+              ))}
+            </select>
               <div style={{ marginRight: '20px' }}>
                 <label>Number of Darts:</label>
                 <input
@@ -325,6 +387,12 @@ return (
     {/* Team 2 */}
     <div>
     <h2>Team 2</h2>
+    <select value={selectedTeam2} onChange={(e) => handleTeamChange(e, 2)}>
+          <option value="">Select Team</option>
+          {teams.map(team => (
+            <option key={team._id} value={team._id}>{team.team_name}</option>
+          ))}
+        </select>
       {formData.team2.games.map((game, index) => (
         <div key={index}>
           {index === 0 || game.game_type !== formData.team2.games[index - 1].game_type ? (
@@ -341,15 +409,12 @@ return (
                   required
                 />
               </div>
-              <div style={{ marginRight: '20px' }}>
-                <label>Player Name:</label>
-                <input
-                  type="text"
-                  value={game.player_name}
-                  onChange={(e) => handleGameChange('team2', index, 'player_name', e.target.value)}
-                  required
-                />
-              </div>
+              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
+              <option value="">Select Player</option>
+              {playersTeam2.map(player => (
+                <option key={player._id} value={player._id}>{player.name}</option>
+              ))}
+            </select>
               <div style={{ marginRight: '20px' }}>
                 <label>Number of Darts:</label>
                 <input
@@ -393,15 +458,12 @@ return (
                   required
                 />
               </div>
-              <div style={{ marginRight: '20px' }}>
-                <label>Player Name:</label>
-                <input
-                  type="text"
-                  value={game.player_name}
-                  onChange={(e) => handleGameChange('team2', index, 'player_name', e.target.value)}
-                  required
-                />
-              </div>
+              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
+              <option value="">Select Player</option>
+              {playersTeam2.map(player => (
+                <option key={player._id} value={player._id}>{player.name}</option>
+              ))}
+            </select>
               <div>
                 <label>Result:</label>
                 <select
@@ -427,15 +489,12 @@ return (
                   required
                 />
               </div>
-              <div style={{ marginRight: '20px' }}>
-                <label>Player Name:</label>
-                <input
-                  type="text"
-                  value={game.player_name}
-                  onChange={(e) => handleGameChange('team2', index, 'player_name', e.target.value)}
-                  required
-                />
-              </div>
+              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
+              <option value="">Select Player</option>
+              {playersTeam2.map(player => (
+                <option key={player._id} value={player._id}>{player.name}</option>
+              ))}
+            </select>
               <div>
                 <label>Result:</label>
                 <select
@@ -461,15 +520,12 @@ return (
                   required
                 />
               </div>
-              <div style={{ marginRight: '20px' }}>
-                <label>Player Name:</label>
-                <input
-                  type="text"
-                  value={game.player_name}
-                  onChange={(e) => handleGameChange('team2', index, 'player_name', e.target.value)}
-                  required
-                />
-              </div>
+              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
+              <option value="">Select Player</option>
+              {playersTeam2.map(player => (
+                <option key={player._id} value={player._id}>{player.name}</option>
+              ))}
+            </select>
               <div>
                 <label>Result:</label>
                 <select
@@ -495,15 +551,12 @@ return (
                   required
                 />
               </div>
-              <div style={{ marginRight: '20px' }}>
-                <label>Player Name:</label>
-                <input
-                  type="text"
-                  value={game.player_name}
-                  onChange={(e) => handleGameChange('team2', index, 'player_name', e.target.value)}
-                  required
-                />
-              </div>
+              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
+              <option value="">Select Player</option>
+              {playersTeam2.map(player => (
+                <option key={player._id} value={player._id}>{player.name}</option>
+              ))}
+            </select>
               <div style={{ marginRight: '20px' }}>
                 <label>Number of Darts:</label>
                 <input
