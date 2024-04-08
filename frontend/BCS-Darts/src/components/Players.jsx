@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 export default function Players() {
-  const [teams, setTeams] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [teams, setTeams] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const teamsResponse = await axios.get('http://localhost:3001/teams');
-        setTeams(teamsResponse.data);
-        setIsLoading(false);
+        const teamsResponse = await axios.get('http://localhost:3001/teams')
+        setTeams(teamsResponse.data)
+        setIsLoading(false)
       } catch (error) {
-        console.error('Error fetching teams:', error);
-        setIsLoading(false);
+        console.error('Error fetching teams:', error)
+        setIsLoading(false)
       }
-    };
+    }
 
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   if (isLoading || teams.length === 0) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
@@ -53,5 +53,5 @@ export default function Players() {
         ))}
       </div>
     </div>
-  );
+  )
 }

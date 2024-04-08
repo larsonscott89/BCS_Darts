@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -7,88 +7,88 @@ export default function Signup() {
     team_name: '',
     members: [{ name: '', cell_number: '', email: '', is_captain: false }],
   });
-  const [leagues, setLeagues] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [leagues, setLeagues] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchLeagues = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/leagues');
-        setLeagues(response.data);
+        const response = await axios.get('http://localhost:3001/leagues')
+        setLeagues(response.data)
       } catch (error) {
-        console.error('Error fetching leagues:', error);
+        console.error('Error fetching leagues:', error)
       } finally {
-        setIsLoading(false);
+        setIsLoading(false)
       }
-    };
+    }
 
-    fetchLeagues();
-  }, []);
+    fetchLeagues()
+  }, [])
 
   useEffect(() => {
     if (formData.league_id !== '') {
-      const selectedLeague = leagues.find((league) => league._id === formData.league_id);
-      const numberOfPlayers = selectedLeague ? selectedLeague.number_of_players : 0;
+      const selectedLeague = leagues.find((league) => league._id === formData.league_id)
+      const numberOfPlayers = selectedLeague ? selectedLeague.number_of_players : 0
       const initialMembers = Array.from({ length: numberOfPlayers }, () => ({
         name: '',
         cell_number: '',
         email: '',
         is_captain: false,
-      }));
+      }))
       setFormData((prevState) => ({
         ...prevState,
         members: initialMembers,
-      }));
+      }))
     }
-  }, [formData.league_id, leagues]);
+  }, [formData.league_id, leagues])
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleCaptainCheckboxChange = (index) => {
-    const updatedMembers = [...formData.members];
+    const updatedMembers = [...formData.members]
     updatedMembers.forEach((member, i) => {
-      member.is_captain = i === index; // Toggle the is_captain value based on index
-    });
+      member.is_captain = i === index;
+    })
     setFormData((prevState) => ({
       ...prevState,
       members: updatedMembers,
-    }));
-  };
+    }))
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (
       formData.league_id === '' ||
       formData.team_name === '' ||
       formData.members.some((member) => member.name === '')
     ) {
-      alert('Please fill in all required fields.');
-      return;
+      alert('Please fill in all required fields.')
+      return
     }
 
     try {
-      const response = await axios.post('http://localhost:3001/teams', formData);
-      console.log('Team signed up successfully:', response.data);
+      const response = await axios.post('http://localhost:3001/teams', formData)
+      console.log('Team signed up successfully:', response.data)
 
       setFormData({
         league_id: '',
         team_name: '',
         members: [{ name: '', cell_number: '', email: '', is_captain: false }],
-      });
+      })
     } catch (error) {
-      console.error('Error signing up team:', error);
+      console.error('Error signing up team:', error)
     }
-  };
+  }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
@@ -134,7 +134,7 @@ export default function Signup() {
                   setFormData((prevState) => ({
                     ...prevState,
                     members: updatedMembers,
-                  }));
+                  }))
                 }}
                 name={`members[${index}].name`}
                 placeholder={`Member ${index + 1} Name`}
@@ -148,7 +148,7 @@ export default function Signup() {
                   setFormData((prevState) => ({
                     ...prevState,
                     members: updatedMembers,
-                  }));
+                  }))
                 }}
                 name={`members[${index}].cell_number`}
                 placeholder={`Member ${index + 1} Cell Number`}
@@ -181,5 +181,5 @@ export default function Signup() {
         <button type="submit">Sign Up</button>
       </form>
     </div>
-  );
+  )
 }
