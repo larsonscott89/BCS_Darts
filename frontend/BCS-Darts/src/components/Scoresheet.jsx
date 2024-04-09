@@ -46,7 +46,8 @@ export default function Scoresheet() {
       ],
     },
     league_id: '',
-    week: ''
+    week: '',
+    total_wins: ''
   })
 
   const [teams, setTeams] = useState([]);
@@ -174,9 +175,19 @@ export default function Scoresheet() {
 }
 
 return (
-  <div style={{ display: 'flex' }}>
+  <div style={{ display: 'flex', alignContent: 'center', textAlign: 'center', alignItems: 'center' }}>
     {/* Team 1 */}
-    <div style={{ marginRight: '20px' }}>
+    <div style={{ marginLeft: '20px' }}>
+    <div>
+      <div>
+        <label>Week:</label>
+        <input
+          type="text"
+          value={formData.week}
+          onChange={(e) => setFormData({ ...formData, week: e.target.value })}
+        />
+      </div>
+    </div>
       <h2>Team 1</h2>
       <select value={selectedTeam1} onChange={(e) => handleTeamChange(e, 1)}>
           <option value="">Select Team</option>
@@ -194,6 +205,7 @@ return (
               <div style={{ marginRight: '20px' }}>
                 <label>Total QPs:</label>
                 <input
+                  style={{width: '60px', height: '15px', display: 'flex', textAlign: 'center'}}
                   type="text"
                   value={game.total_qps}
                   onChange={(e) => handleGameChange('team1', index, 'total_qps', e.target.value)}
@@ -209,6 +221,7 @@ return (
               <div style={{ marginRight: '20px' }}>
                 <label>Number of Darts:</label>
                 <input
+                  style={{width: '60px', height: '15px', display: 'flex', textAlign: 'center'}}
                   type="text"
                   value={game.number_of_darts}
                   onChange={(e) => handleGameChange('team1', index, 'number_of_darts', e.target.value)}
@@ -218,6 +231,7 @@ return (
               <div style={{ marginRight: '20px' }}>
                 <label>Points Left:</label>
                 <input
+                  style={{width: '60px', height: '15px', display: 'flex', textAlign: 'center'}}
                   type="text"
                   value={game.points_left}
                   onChange={(e) => handleGameChange('team1', index, 'points_left', e.target.value)}
@@ -382,10 +396,27 @@ return (
           )}
         </div>
       ))}
+      <div style={{width: '60px', height: '25px', display: 'block', textAlign: 'start', marginBottom: '70px'}}>
+      <label>Total Wins:</label>
+        <input
+          type="text"
+          value={formData.total_wins}
+          onChange={(e) => setFormData({ ...formData, league_id: e.target.value })}
+        />
+      </div>
     </div>
+    
 
     {/* Team 2 */}
     <div>
+    <div>
+        <label>League ID:</label>
+        <input
+          type="text"
+          value={formData.league_id}
+          onChange={(e) => setFormData({ ...formData, league_id: e.target.value })}
+        />
+      </div>
     <h2>Team 2</h2>
     <select value={selectedTeam2} onChange={(e) => handleTeamChange(e, 2)}>
           <option value="">Select Team</option>
@@ -591,27 +622,16 @@ return (
           )}
         </div>
       ))}
-    </div>
-
-    <div>
-      <div>
-        <label>League ID:</label>
+      <div style={{width: '60px', height: '25px', display: 'block', textAlign: 'start', marginBottom: '70px'}}>
+      <label>Total Wins:</label>
         <input
           type="text"
-          value={formData.league_id}
+          value={formData.total_wins}
           onChange={(e) => setFormData({ ...formData, league_id: e.target.value })}
         />
       </div>
-      <div>
-        <label>Week:</label>
-        <input
-          type="text"
-          value={formData.week}
-          onChange={(e) => setFormData({ ...formData, week: e.target.value })}
-        />
-      </div>
-      <button type="submit" onClick={handleSubmit}>Submit</button>
     </div>
+    <button style={{width: '60px', height: '25px', display: 'flex', alignItems: 'center', textAlign: 'center', marginBottom: '70px'}} type="submit" onClick={handleSubmit}>Submit</button>
   </div>
 );
 }

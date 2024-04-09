@@ -46,9 +46,25 @@ const deleteUser = async (req, res) => {
   }
 }
 
+const promoteToAdmin = async (req, res) => {
+  try {
+    const { id } = req.params
+    const user = await Users.findById(id)
+    if (!user) {
+      throw new Error('User not found')
+    }
+    user.role = 'admin'
+    await user.save()
+    return res.status(200).json({ message: 'User promoted to admin successfully', user })
+  } catch (error) {
+    return res.status(500).json({ error: error.message })
+  }
+}
+
 module.exports = {
   createUser,
   getUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  promoteToAdmin
 }

@@ -13,9 +13,10 @@ const scoresheetSchema = new mongoose.Schema(
         quality_points: { type: Number, required: false },
         number_of_darts: { type: Number, required: false },
         points_left: { type: Number, required: false },
-        white_hat: { type: String, required: false }
+        white_hat: { type: String, required: false },
       }
     ],
+    total_wins: { type: String, required: true},
     scoresheet_picture: { type: String, required: false }
   },
   { timestamps: true }

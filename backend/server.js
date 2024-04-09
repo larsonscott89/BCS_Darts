@@ -31,6 +31,7 @@ app.post('/players', playerController.createPlayer)
 app.post('/sublist', sublistController.createSublist)
 app.post('/scoresheet', scoresheetController.createScoresheet)
 app.post('/user', userController.createUser)
+app.post('/users/promote-to-admin/:id', userController.promoteToAdmin)
 
 // Read
 app.get('/leagues', leagueController.getLeague)
