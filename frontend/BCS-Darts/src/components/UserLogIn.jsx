@@ -31,14 +31,14 @@ const UserLogIn = ({ setLoggedIn, setUsername, setUserId }) => {
             if (!response.ok) {
                 throw new Error('Login failed');
             }
-            const data = await response.json(); // Parse the response JSON data
+            const data = await response.json();
             alert('Login successful');
-            setLoggedIn(true); // Call setLoggedIn here
-            setUsername(user.username); // Use user.username
-            setUserId(data.user_id); // Use the user ID from the response
+            setLoggedIn(true); 
+            setUsername(user.username);
+            setUserId(data.user_id); 
             localStorage.setItem('user_id', data.user_id);
             localStorage.setItem('username', user.username);
-            navigate('/'); // Navigate to the home page
+            navigate('/'); 
         } catch (error) {
             console.error('Error logging in:', error.message);
             alert('Login failed');

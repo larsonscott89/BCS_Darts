@@ -1,17 +1,18 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
-import { useState } from "react"
-import Header from './Header'
-import Home from './Home'
-import Leagues from './Leagues'
-import Teams from './Teams'
-import Signup from './Signup'
-import Players from './Players'
-import Scoresheet from './Scoresheet'
-import UserLogIn from './UserLogIn'
-import UserSignUp from './UserSignUp'
-import UserManagement from './UserManagement'
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useState } from "react";
+import Header from './Header';
+import Home from './Home';
+import Leagues from './Leagues';
+import Teams from './Teams';
+import Signup from './Signup';
+import Players from './Players';
+import Scoresheet from './Scoresheet';
+import UserLogIn from './UserLogIn';
+import UserSignUp from './UserSignUp';
+import UserManagement from './UserManagement';
+import AdminPromotion from './AdminPromotion'; // Import the component for admin promotions
 
-export default function Main () {
+export default function Main() {
   const [leagues, setLeagues] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
@@ -46,9 +47,12 @@ export default function Main () {
         <Route path='/players' element={<Players/>}/>
         <Route path='/Scoresheets' element={<Scoresheet/>}/>
 
+        {/* Regular user route */}
         <Route path='/users' element={isAuthenticated() && isAdmin() ? <UserManagement/> : <Navigate to="/" />}/>
-        {/* <Route path='/promote-user/:userId' element={isAuthenticated() && isAdmin() ? <PromoteUserToAdmin/> : <Navigate to="/" />}/> */}
+        
+        {/* Admin-specific route */}
+        <Route path='/admin' element={isAuthenticated() && isAdmin() ? <AdminPanel/> : <Navigate to="/admin" />}/>
       </Routes>
     </div>
-  )
+  );
 }

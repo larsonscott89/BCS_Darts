@@ -1,16 +1,25 @@
 const Users = require('../models/Users')
+const bcrypt = require('bcrypt')
 
 const createUser = async (req, res) => {
   try {
-    const users = await new Users(req.body)
-    await users.save()
-    return res.status(201).json({
-        users
-    })
+    const { username, password } = req.body;
+
+    const existingUser = await Users.findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Username already exists' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new Users({ username, password: hashedPassword });
+    await newUser.save();
+
+    return res.status(201).json({ user: newUser });
   } catch (error) {
-    return res.status(500).json({ error: error.message })
+    return res.status(500).json({ error: error.message });
   }
-  }
+}
 
 const getUser = async (req, res) => {
   try {
@@ -46,6 +55,29 @@ const deleteUser = async (req, res) => {
   }
 }
 
+const loginUser = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    const user = await Users.findOne({ username });
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    req.session.userId = user._id;
+    req.session.username = user.username;
+
+    return res.status(200).json({ message: 'Login successful' });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
+
 const promoteToAdmin = async (req, res) => {
   try {
     const { id } = req.params
@@ -66,5 +98,6 @@ module.exports = {
   getUser,
   updateUser,
   deleteUser,
-  promoteToAdmin
+  promoteToAdmin,
+  loginUser
 }

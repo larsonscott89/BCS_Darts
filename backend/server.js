@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const session = require('express-session')
 const PORT = process.env.PORT || 3001
 const db = require('./db')
 const bodyParser = require('body-parser')
@@ -16,6 +17,12 @@ app.use(cors())
 app.use(express.json())
 app.use(bodyParser.json())
 
+app.use(session({
+  secret: 'Password123987!',
+  resave: false,
+  saveUninitialized: false,
+}))
+
 app.get('/', (req, res) => {
   res.send('This is root!')
 })
@@ -30,8 +37,8 @@ app.post('/teams', teamController.createTeam)
 app.post('/players', playerController.createPlayer)
 app.post('/sublist', sublistController.createSublist)
 app.post('/scoresheet', scoresheetController.createScoresheet)
-app.post('/user', userController.createUser)
-app.post('/users/promote-to-admin/:id', userController.promoteToAdmin)
+app.post('/users/signup', userController.createUser)
+app.post('/users/login', userController.loginUser)
 
 // Read
 app.get('/leagues', leagueController.getLeague)
@@ -58,6 +65,8 @@ app.delete('/players/:id', playerController.deletePlayer)
 app.delete('/sublist/:id', sublistController.deleteSublist)
 app.delete('/scoresheet/:id', scoresheetController.deleteScoresheet)
 app.delete('/user/:id', userController.deleteUser)
+
+app.patch('/users/:id', userController.promoteToAdmin)
 
 
 app.get('/*', async (req,res) => {

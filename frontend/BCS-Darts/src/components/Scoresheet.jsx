@@ -175,53 +175,76 @@ export default function Scoresheet() {
 }
 
 return (
-  <div style={{ display: 'flex', alignContent: 'center', textAlign: 'center', alignItems: 'center' }}>
+  <div style={{ display: 'flex', 
+                alignContent: 'center', 
+                textAlign: 'center', 
+                alignItems: 'center' }}>
     {/* Team 1 */}
-    <div style={{ marginLeft: '20px' }}>
-    <div>
+    <div style={{ marginLeft: '20px', 
+                  marginRight: '40px' }}>
       <div>
         <label>Week:</label>
         <input
+          style={{ width: '80px', 
+                    height: '15px', 
+                    textAlign: 'center', 
+                    marginTop: '40px' }}
           type="text"
           value={formData.week}
           onChange={(e) => setFormData({ ...formData, week: e.target.value })}
         />
       </div>
-    </div>
+
       <h2>Team 1</h2>
       <select value={selectedTeam1} onChange={(e) => handleTeamChange(e, 1)}>
-          <option value="">Select Team</option>
-          {teams.map(team => (
-            <option key={team._id} value={team._id}>{team.team_name}</option>
-          ))}
-        </select>
+        <option value="">Select Team</option>
+        {teams.map(team => (
+          <option key={team._id} value={team._id}>{team.team_name}</option>
+        ))}
+      </select>
+
       {formData.team1.games.map((game, index) => (
         <div key={index}>
           {index === 0 || game.game_type !== formData.team1.games[index - 1].game_type ? (
             <h3>{game.game_type.toUpperCase()}</h3>
           ) : null}
+
+{/* Inputs for 501 game */}
           {game.game_type === '501' && (
-            <div style={{ display: 'flex', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', 
+                          marginBottom: '10px' }}>
               <div style={{ marginRight: '20px' }}>
                 <label>Total QPs:</label>
                 <input
-                  style={{width: '60px', height: '15px', display: 'flex', textAlign: 'center'}}
+                  style={{ width: '60px', 
+                            height: '15px', 
+                            display: 'flex', 
+                            textAlign: 'center' }}
                   type="text"
                   value={game.total_qps}
                   onChange={(e) => handleGameChange('team1', index, 'total_qps', e.target.value)}
                   required
                 />
               </div>
-              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
-              <option value="">Select Player</option>
-              {playersTeam1.map(player => (
-                <option key={player._id} value={player._id}>{player.name}</option>
-              ))}
-            </select>
+              <select style={{ width: '200px', 
+                                height: '35px', 
+                                display: 'flex', 
+                                textAlign: 'center', 
+                                marginRight: '20px' }} 
+                  value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
+
+                <option value="">Select Player</option>
+                {playersTeam1.map(player => (
+                  <option key={player._id} value={player._id}>{player.name}</option>
+                ))}
+              </select>
               <div style={{ marginRight: '20px' }}>
                 <label>Number of Darts:</label>
                 <input
-                  style={{width: '60px', height: '15px', display: 'flex', textAlign: 'center'}}
+                  style={{ width: '60px', 
+                            height: '15px', 
+                            display: 'flex', 
+                            textAlign: 'center' }}
                   type="text"
                   value={game.number_of_darts}
                   onChange={(e) => handleGameChange('team1', index, 'number_of_darts', e.target.value)}
@@ -231,7 +254,10 @@ return (
               <div style={{ marginRight: '20px' }}>
                 <label>Points Left:</label>
                 <input
-                  style={{width: '60px', height: '15px', display: 'flex', textAlign: 'center'}}
+                  style={{ width: '60px', 
+                            height: '15px', 
+                            display: 'flex', 
+                            textAlign: 'center' }}
                   type="text"
                   value={game.points_left}
                   onChange={(e) => handleGameChange('team1', index, 'points_left', e.target.value)}
@@ -241,6 +267,10 @@ return (
               <div>
                 <label>Result:</label>
                 <select
+                  style={{ width: '100px', 
+                            height: '25px', 
+                            display: 'flex', 
+                            textAlign: 'center' }}
                   value={game.result}
                   onChange={(e) => handleGameChange('team1', index, 'result', e.target.value)}
                   required
@@ -252,26 +282,42 @@ return (
               </div>
             </div>
           )}
+
+{/* Inputs for cricket game */}
           {game.game_type === 'cricket' && (
-            <div style={{ display: 'flex', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', 
+                          marginBottom: '10px' }}>
               <div style={{ marginRight: '20px' }}>
-                <label>Hat Trick or White Horse:</label>
+                <label>White Horse:</label>
                 <input
+                  style={{ width: '100px', 
+                            height: '15px', 
+                            display: 'flex', 
+                            textAlign: 'center' }}
                   type="text"
                   value={game.white_hat}
                   onChange={(e) => handleGameChange('team1', index, 'white_hat', e.target.value)}
                   required
                 />
               </div>
-              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
-              <option value="">Select Player</option>
-              {playersTeam1.map(player => (
-                <option key={player._id} value={player._id}>{player.name}</option>
-              ))}
-            </select>
+              <select style={{ width: '200px', 
+                                height: '35px', 
+                                display: 'flex', 
+                                textAlign: 'center', 
+                                marginRight: '20px' }} 
+                  value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
+                <option value="">Select Player</option>
+                {playersTeam1.map(player => (
+                  <option key={player._id} value={player._id}>{player.name}</option>
+                ))}
+              </select>
               <div>
                 <label>Result:</label>
                 <select
+                  style={{ width: '100px', 
+                            height: '25px', 
+                            display: 'flex', 
+                            textAlign: 'center' }}
                   value={game.result}
                   onChange={(e) => handleGameChange('team1', index, 'result', e.target.value)}
                   required
@@ -283,18 +329,30 @@ return (
               </div>
             </div>
           )}
+
+{/* Inputs for doubles cricket game */}
           {game.game_type === 'doubles cricket1' && (
-            <div style={{ display: 'flex', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', 
+                          marginBottom: '10px' }}>
               <div style={{ marginRight: '20px' }}>
-                <label>Hat Trick or White Horse:</label>
-                <input
-                  type="text"
-                  value={game.white_hat}
-                  onChange={(e) => handleGameChange('team1', index, 'white_hat', e.target.value)}
-                  required
-                />
+                <label>White Horse:</label>
+                  <input
+                    style={{width: '60px', 
+                            height: '15px', 
+                            display: 'flex', 
+                            textAlign: 'center'}}
+                    type="text"
+                    value={game.white_hat}
+                    onChange={(e) => handleGameChange('team1', index, 'white_hat', e.target.value)}
+                    required
+                  />
               </div>
-              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
+              <select style={{width: '200px', 
+                              height: '35px', 
+                              display: 'flex', 
+                              textAlign: 'center', 
+                              marginRight: '20px'}} 
+                value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
               <option value="">Select Player</option>
               {playersTeam1.map(player => (
                 <option key={player._id} value={player._id}>{player.name}</option>
@@ -303,6 +361,10 @@ return (
               <div>
                 <label>Result:</label>
                 <select
+                  style={{width: '100px', 
+                          height: '25px', 
+                          display: 'flex', 
+                          textAlign: 'center'}}
                   value={game.result}
                   onChange={(e) => handleGameChange('team1', index, 'result', e.target.value)}
                   required
@@ -314,18 +376,29 @@ return (
               </div>
             </div>
           )}
+{/* Inputs for doubles cricket game */}
           {game.game_type === 'doubles cricket2' && (
-            <div style={{ display: 'flex', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', 
+                          marginBottom: '10px' }}>
               <div style={{ marginRight: '20px' }}>
-                <label>Hat Trick or White Horse:</label>
+                <label>White Horse:</label>
                 <input
+                  style={{width: '60px', 
+                          height: '15px', 
+                          display: 'flex', 
+                          textAlign: 'center'}}
                   type="text"
                   value={game.white_hat}
                   onChange={(e) => handleGameChange('team1', index, 'white_hat', e.target.value)}
                   required
                 />
               </div>
-              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
+              <select style={{width: '200px', 
+                              height: '35px', 
+                              display: 'flex', 
+                              textAlign: 'center', 
+                              marginRight: '20px'}} 
+                  value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
               <option value="">Select Player</option>
               {playersTeam1.map(player => (
                 <option key={player._id} value={player._id}>{player.name}</option>
@@ -334,6 +407,10 @@ return (
               <div>
                 <label>Result:</label>
                 <select
+                  style={{width: '100px', 
+                          height: '25px', 
+                          display: 'flex', 
+                          textAlign: 'center'}}
                   value={game.result}
                   onChange={(e) => handleGameChange('team1', index, 'result', e.target.value)}
                   required
@@ -345,18 +422,30 @@ return (
               </div>
             </div>
           )}
+
+{/* Inputs for team 701 game */}
           {game.game_type === 'team 701' && (
-            <div style={{ display: 'flex', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', 
+                          marginBottom: '10px' }}>
               <div style={{ marginRight: '20px' }}>
                 <label>Total QPs:</label>
                 <input
+                  style={{width: '60px', 
+                          height: '15px', 
+                          display: 'flex', 
+                          textAlign: 'center'}}
                   type="text"
                   value={game.total_qps}
                   onChange={(e) => handleGameChange('team1', index, 'total_qps', e.target.value)}
                   required
                 />
               </div>
-              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
+              <select style={{width: '200px', 
+                              height: '35px', 
+                              display: 'flex', 
+                              textAlign: 'center', 
+                              marginRight: '20px'}} 
+                  value={game.player_name} onChange={(e) => handlePlayerChange(e, 1, index)}>
               <option value="">Select Player</option>
               {playersTeam1.map(player => (
                 <option key={player._id} value={player._id}>{player.name}</option>
@@ -365,6 +454,10 @@ return (
               <div style={{ marginRight: '20px' }}>
                 <label>Number of Darts:</label>
                 <input
+                  style={{width: '60px', 
+                          height: '15px', 
+                          display: 'flex', 
+                          textAlign: 'center'}}
                   type="text"
                   value={game.number_of_darts}
                   onChange={(e) => handleGameChange('team1', index, 'number_of_darts', e.target.value)}
@@ -374,6 +467,10 @@ return (
               <div style={{ marginRight: '20px' }}>
                 <label>Points Left:</label>
                 <input
+                  style={{width: '60px', 
+                          height: '15px', 
+                          display: 'flex', 
+                          textAlign: 'center'}}
                   type="text"
                   value={game.points_left}
                   onChange={(e) => handleGameChange('team1', index, 'points_left', e.target.value)}
@@ -383,6 +480,10 @@ return (
               <div>
                 <label>Result:</label>
                 <select
+                  style={{width: '100px', 
+                          height: '25px', 
+                          display: 'flex', 
+                          textAlign: 'center'}}
                   value={game.result}
                   onChange={(e) => handleGameChange('team1', index, 'result', e.target.value)}
                   required
@@ -396,7 +497,12 @@ return (
           )}
         </div>
       ))}
-      <div style={{width: '60px', height: '25px', display: 'block', textAlign: 'start', marginBottom: '70px'}}>
+{/* Inputs for total wins */}
+      <div style={{width: '60px', 
+                    height: '25px', 
+                    display: 'block', 
+                    textAlign: 'start', 
+                    marginBottom: '70px'}}>
       <label>Total Wins:</label>
         <input
           type="text"
@@ -408,230 +514,298 @@ return (
     
 
     {/* Team 2 */}
-    <div>
-    <div>
-        <label>League ID:</label>
-        <input
-          type="text"
-          value={formData.league_id}
-          onChange={(e) => setFormData({ ...formData, league_id: e.target.value })}
-        />
-      </div>
-    <h2>Team 2</h2>
-    <select value={selectedTeam2} onChange={(e) => handleTeamChange(e, 2)}>
-          <option value="">Select Team</option>
-          {teams.map(team => (
-            <option key={team._id} value={team._id}>{team.team_name}</option>
-          ))}
-        </select>
-      {formData.team2.games.map((game, index) => (
-        <div key={index}>
-          {index === 0 || game.game_type !== formData.team2.games[index - 1].game_type ? (
-            <h3>{game.game_type.toUpperCase()}</h3>
-          ) : null}
-          {game.game_type === '501' && (
-            <div style={{ display: 'flex', marginBottom: '10px' }}>
-              <div style={{ marginRight: '20px' }}>
-                <label>Total QPs:</label>
-                <input
-                  type="text"
-                  value={game.total_qps}
-                  onChange={(e) => handleGameChange('team2', index, 'total_qps', e.target.value)}
-                  required
-                />
-              </div>
-              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
-              <option value="">Select Player</option>
-              {playersTeam2.map(player => (
-                <option key={player._id} value={player._id}>{player.name}</option>
-              ))}
-            </select>
-              <div style={{ marginRight: '20px' }}>
-                <label>Number of Darts:</label>
-                <input
-                  type="text"
-                  value={game.number_of_darts}
-                  onChange={(e) => handleGameChange('team2', index, 'number_of_darts', e.target.value)}
-                  required
-                />
-              </div>
-              <div style={{ marginRight: '20px' }}>
-                <label>Points Left:</label>
-                <input
-                  type="text"
-                  value={game.points_left}
-                  onChange={(e) => handleGameChange('team2', index, 'points_left', e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <label>Result:</label>
-                <select
-                  value={game.result}
-                  onChange={(e) => handleGameChange('team2', index, 'result', e.target.value)}
-                  required
-                >
-                  <option value="">Select</option>
-                  <option value="win">Win</option>
-                  <option value="lose">Lose</option>
-                </select>
-              </div>
-            </div>
-          )}
-          {game.game_type === 'cricket' && (
-            <div style={{ display: 'flex', marginBottom: '10px' }}>
-              <div style={{ marginRight: '20px' }}>
-                <label>Hat Trick or White Horse:</label>
-                <input
-                  type="text"
-                  value={game.white_hat}
-                  onChange={(e) => handleGameChange('team2', index, 'white_hat', e.target.value)}
-                  required
-                />
-              </div>
-              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
-              <option value="">Select Player</option>
-              {playersTeam2.map(player => (
-                <option key={player._id} value={player._id}>{player.name}</option>
-              ))}
-            </select>
-              <div>
-                <label>Result:</label>
-                <select
-                  value={game.result}
-                  onChange={(e) => handleGameChange('team2', index, 'result', e.target.value)}
-                  required
-                >
-                  <option value="">Select</option>
-                  <option value="win">Win</option>
-                  <option value="lose">Lose</option>
-                </select>
-              </div>
-            </div>
-          )}
-          {game.game_type === 'doubles cricket1' && (
-            <div style={{ display: 'flex', marginBottom: '10px' }}>
-              <div style={{ marginRight: '20px' }}>
-                <label>Hat Trick or White Horse:</label>
-                <input
-                  type="text"
-                  value={game.white_hat}
-                  onChange={(e) => handleGameChange('team2', index, 'white_hat', e.target.value)}
-                  required
-                />
-              </div>
-              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
-              <option value="">Select Player</option>
-              {playersTeam2.map(player => (
-                <option key={player._id} value={player._id}>{player.name}</option>
-              ))}
-            </select>
-              <div>
-                <label>Result:</label>
-                <select
-                  value={game.result}
-                  onChange={(e) => handleGameChange('team2', index, 'result', e.target.value)}
-                  required
-                >
-                  <option value="">Select</option>
-                  <option value="win">Win</option>
-                  <option value="lose">Lose</option>
-                </select>
-              </div>
-            </div>
-          )}
-          {game.game_type === 'doubles cricket2' && (
-            <div style={{ display: 'flex', marginBottom: '10px' }}>
-              <div style={{ marginRight: '20px' }}>
-                <label>Hat Trick or White Horse:</label>
-                <input
-                  type="text"
-                  value={game.white_hat}
-                  onChange={(e) => handleGameChange('team2', index, 'white_hat', e.target.value)}
-                  required
-                />
-              </div>
-              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
-              <option value="">Select Player</option>
-              {playersTeam2.map(player => (
-                <option key={player._id} value={player._id}>{player.name}</option>
-              ))}
-            </select>
-              <div>
-                <label>Result:</label>
-                <select
-                  value={game.result}
-                  onChange={(e) => handleGameChange('team2', index, 'result', e.target.value)}
-                  required
-                >
-                  <option value="">Select</option>
-                  <option value="win">Win</option>
-                  <option value="lose">Lose</option>
-                </select>
-              </div>
-            </div>
-          )}
-          {game.game_type === 'team 701' && (
-            <div style={{ display: 'flex', marginBottom: '10px' }}>
-              <div style={{ marginRight: '20px' }}>
-                <label>Total QPs:</label>
-                <input
-                  type="text"
-                  value={game.total_qps}
-                  onChange={(e) => handleGameChange('team2', index, 'total_qps', e.target.value)}
-                  required
-                />
-              </div>
-              <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
-              <option value="">Select Player</option>
-              {playersTeam2.map(player => (
-                <option key={player._id} value={player._id}>{player.name}</option>
-              ))}
-            </select>
-              <div style={{ marginRight: '20px' }}>
-                <label>Number of Darts:</label>
-                <input
-                  type="text"
-                  value={game.number_of_darts}
-                  onChange={(e) => handleGameChange('team2', index, 'number_of_darts', e.target.value)}
-                  required
-                />
-              </div>
-              <div style={{ marginRight: '20px' }}>
-                <label>Points Left:</label>
-                <input
-                  type="text"
-                  value={game.points_left}
-                  onChange={(e) => handleGameChange('team2', index, 'points_left', e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <label>Result:</label>
-                <select
-                  value={game.result}
-                  onChange={(e) => handleGameChange('team2', index, 'result', e.target.value)}
-                  required
-                >
-                  <option value="">Select</option>
-                  <option value="win">Win</option>
-                  <option value="lose">Lose</option>
-                </select>
-              </div>
-            </div>
-          )}
+    <div style={{ marginLeft: '20px', 
+                  marginRight: '40px' }}>
+      <div>
+          <label>League ID:</label>
+          <input
+            style={{width: '80px', 
+                    height: '15px', 
+                    textAlign: 'center', 
+                    marginTop:'40px'}}
+            type="text"
+            value={formData.league_id}
+            onChange={(e) => setFormData({ ...formData, league_id: e.target.value })}
+          />
         </div>
-      ))}
-      <div style={{width: '60px', height: '25px', display: 'block', textAlign: 'start', marginBottom: '70px'}}>
-      <label>Total Wins:</label>
-        <input
-          type="text"
-          value={formData.total_wins}
-          onChange={(e) => setFormData({ ...formData, league_id: e.target.value })}
-        />
+      <h2>Team 2</h2>
+      <select value={selectedTeam2} onChange={(e) => handleTeamChange(e, 2)}>
+            <option value="">Select Team</option>
+            {teams.map(team => (
+              <option key={team._id} value={team._id}>{team.team_name}</option>
+            ))}
+          </select>
+        {formData.team2.games.map((game, index) => (
+          <div key={index}>
+            {index === 0 || game.game_type !== formData.team2.games[index - 1].game_type ? (
+              <h3>{game.game_type.toUpperCase()}</h3>
+            ) : null}
+
+{/* Inputs for 501 game */}
+            {game.game_type === '501' && (
+              <div style={{ display: 'flex', 
+                            marginBottom: '10px' }}>
+                <div style={{ marginRight: '20px' }}>
+                  <label>Total QPs:</label>
+                  <input
+                    style={{width: '60px', 
+                            height: '15px', 
+                            display: 'flex', 
+                            textAlign: 'center'}}
+                    type="text"
+                    value={game.total_qps}
+                    onChange={(e) => handleGameChange('team2', index, 'total_qps', e.target.value)}
+                    required
+                  />
+                </div>
+                <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
+                <option value="">Select Player</option>
+                {playersTeam2.map(player => (
+                  <option key={player._id} value={player._id}>{player.name}</option>
+                ))}
+              </select>
+                <div style={{ marginRight: '20px' }}>
+                  <label>Number of Darts:</label>
+                  <input
+                    style={{width: '60px', 
+                            height: '15px', 
+                            display: 'flex', 
+                            textAlign: 'center'}}
+                    type="text"
+                    value={game.number_of_darts}
+                    onChange={(e) => handleGameChange('team2', index, 'number_of_darts', e.target.value)}
+                    required
+                  />
+                </div>
+                <div style={{ marginRight: '20px' }}>
+                  <label>Points Left:</label>
+                  <input
+                    style={{width: '60px', 
+                            height: '15px', 
+                            display: 'flex', 
+                            textAlign: 'center'}}
+                    type="text"
+                    value={game.points_left}
+                    onChange={(e) => handleGameChange('team2', index, 'points_left', e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <label>Result:</label>
+                  <select
+                    value={game.result}
+                    onChange={(e) => handleGameChange('team2', index, 'result', e.target.value)}
+                    required
+                  >
+                    <option value="">Select</option>
+                    <option value="win">Win</option>
+                    <option value="lose">Lose</option>
+                  </select>
+                </div>
+              </div>
+            )}
+
+{/* Inputs for cricket game */}
+            {game.game_type === 'cricket' && (
+              <div style={{ display: 'flex', 
+                            marginBottom: '10px' }}>
+                <div style={{ marginRight: '20px' }}>
+                  <label>White Horse:</label>
+                  <input
+                    style={{width: '60px', 
+                            height: '15px', 
+                            display: 'flex', 
+                            textAlign: 'center'}}
+                    type="text"
+                    value={game.white_hat}
+                    onChange={(e) => handleGameChange('team2', index, 'white_hat', e.target.value)}
+                    required
+                  />
+                </div>
+                <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
+                <option value="">Select Player</option>
+                {playersTeam2.map(player => (
+                  <option key={player._id} value={player._id}>{player.name}</option>
+                ))}
+              </select>
+                <div>
+                  <label>Result:</label>
+                  <select
+                    value={game.result}
+                    onChange={(e) => handleGameChange('team2', index, 'result', e.target.value)}
+                    required
+                  >
+                    <option value="">Select</option>
+                    <option value="win">Win</option>
+                    <option value="lose">Lose</option>
+                  </select>
+                </div>
+              </div>
+            )}
+
+{/* Inputs for doubles cricket game */}
+            {game.game_type === 'doubles cricket1' && (
+              <div style={{ display: 'flex', 
+                            marginBottom: '10px' }}>
+                <div style={{ marginRight: '20px' }}>
+                  <label>White Horse:</label>
+                  <input
+                    style={{width: '60px', 
+                            height: '15px', 
+                            display: 'flex', 
+                            textAlign: 'center'}}
+                    type="text"
+                    value={game.white_hat}
+                    onChange={(e) => handleGameChange('team2', index, 'white_hat', e.target.value)}
+                    required
+                  />
+                </div>
+                <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
+                <option value="">Select Player</option>
+                {playersTeam2.map(player => (
+                  <option key={player._id} value={player._id}>{player.name}</option>
+                ))}
+              </select>
+                <div>
+                  <label>Result:</label>
+                  <select
+                    value={game.result}
+                    onChange={(e) => handleGameChange('team2', index, 'result', e.target.value)}
+                    required
+                  >
+                    <option value="">Select</option>
+                    <option value="win">Win</option>
+                    <option value="lose">Lose</option>
+                  </select>
+                </div>
+              </div>
+            )}
+
+{/* Inputs for doubles cricket game */}
+            {game.game_type === 'doubles cricket2' && (
+              <div style={{ display: 'flex', 
+                            marginBottom: '10px' }}>
+                <div style={{ marginRight: '20px' }}>
+                  <label>White Horse:</label>
+                  <input
+                    style={{width: '60px', 
+                            height: '15px', 
+                            display: 'flex', 
+                            textAlign: 'center'}}
+                    type="text"
+                    value={game.white_hat}
+                    onChange={(e) => handleGameChange('team2', index, 'white_hat', e.target.value)}
+                    required
+                  />
+                </div>
+                <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
+                <option value="">Select Player</option>
+                {playersTeam2.map(player => (
+                  <option key={player._id} value={player._id}>{player.name}</option>
+                ))}
+              </select>
+                <div>
+                  <label>Result:</label>
+                  <select
+                    value={game.result}
+                    onChange={(e) => handleGameChange('team2', index, 'result', e.target.value)}
+                    required
+                  >
+                    <option value="">Select</option>
+                    <option value="win">Win</option>
+                    <option value="lose">Lose</option>
+                  </select>
+                </div>
+              </div>
+            )}
+
+{/* Inputs for team 701 game */}
+            {game.game_type === 'team 701' && (
+              <div style={{ display: 'flex', 
+                            marginBottom: '10px' }}>
+                <div style={{ marginRight: '20px' }}>
+                  <label>Total QPs:</label>
+                  <input
+                    style={{width: '60px', 
+                            height: '15px', 
+                            display: 'flex', 
+                            textAlign: 'center'}}
+                    type="text"
+                    value={game.total_qps}
+                    onChange={(e) => handleGameChange('team2', index, 'total_qps', e.target.value)}
+                    required
+                  />
+                </div>
+                <select value={game.player_name} onChange={(e) => handlePlayerChange(e, 2, index)}>
+                <option value="">Select Player</option>
+                {playersTeam2.map(player => (
+                  <option key={player._id} value={player._id}>{player.name}</option>
+                ))}
+              </select>
+                <div style={{ marginRight: '20px' }}>
+                  <label>Number of Darts:</label>
+                  <input
+                    style={{width: '60px', 
+                            height: '15px', 
+                            display: 'flex', 
+                            textAlign: 'center'}}
+                    type="text"
+                    value={game.number_of_darts}
+                    onChange={(e) => handleGameChange('team2', index, 'number_of_darts', e.target.value)}
+                    required
+                  />
+                </div>
+                <div style={{ marginRight: '20px' }}>
+                  <label>Points Left:</label>
+                  <input
+                    style={{width: '60px', 
+                            height: '15px', 
+                            display: 'flex', 
+                            textAlign: 'center'}}
+                    type="text"
+                    value={game.points_left}
+                    onChange={(e) => handleGameChange('team2', index, 'points_left', e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <label>Result:</label>
+                  <select
+                    value={game.result}
+                    onChange={(e) => handleGameChange('team2', index, 'result', e.target.value)}
+                    required
+                  >
+                    <option value="">Select</option>
+                    <option value="win">Win</option>
+                    <option value="lose">Lose</option>
+                  </select>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+
+{/* Inputs fortotal wins */}
+        <div style={{width: '60px', 
+                      height: '25px', 
+                      display: 'block', 
+                      textAlign: 'start', 
+                      marginBottom: '70px'}}>
+        <label>Total Wins:</label>
+          <input
+            type="text"
+            value={formData.total_wins}
+            onChange={(e) => setFormData({ ...formData, league_id: e.target.value })}
+          />
+        </div>
       </div>
+        <button style={{width: '60px', 
+                        height: '25px', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        textAlign: 'center', 
+                        marginBottom: '70px'}} 
+            type="submit" onClick={handleSubmit}>Submit</button>
     </div>
-    <button style={{width: '60px', height: '25px', display: 'flex', alignItems: 'center', textAlign: 'center', marginBottom: '70px'}} type="submit" onClick={handleSubmit}>Submit</button>
-  </div>
-);
+  )
 }
