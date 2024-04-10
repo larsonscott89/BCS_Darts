@@ -1,5 +1,7 @@
 const Users = require('../models/Users')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const { JWT_SECRET } = require('../config')
 
 const createUser = async (req, res) => {
   try {
@@ -37,7 +39,7 @@ const updateUser = async (req, res) => {
     if (users) {
       return res.status(200).json(users)
     }
-  } catch (e) {
+  } catch (error) {
     return res.status(500).json({ error: error.message})
   }
 }
@@ -69,13 +71,27 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    req.session.userId = user._id;
-    req.session.username = user.username;
-    user.password = null
+    try {
+      console.log('Generating token...');
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET);
+      console.log('Token generated successfully:', token);
+      // Send token and user object in response
+      return res.status(200).json({ token, user });
+    } catch (error) {
+      console.error('Error generating token:', error.message);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
 
-    return res.status(200).json({ user });
+    req.session._id = user._id;
+    req.session.username = user.username;
+    user.password = null;
+
+    // Log the user object before sending it in the response
+    console.log('User Object:', user);
+
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error('Error during login:', error.message);
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 const UserLogIn = ({ setLoggedIn, setUsername, setUserId, setUserRole }) => {
     const navigate = useNavigate();
@@ -18,29 +19,20 @@ const UserLogIn = ({ setLoggedIn, setUsername, setUserId, setUserRole }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3001/users/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: user.username,
-                    password: user.password,
-                }),
+            const response = await axios.post('http://localhost:3001/users/login', {
+                username: user.username,
+                password: user.password,
             });
             if (!response.ok) {
                 throw new Error('Login failed');
             }
-            const data = await response.json();
-            alert('Login successful');
+            const data = response.data;
+            localStorage.setItem('token', data.token); // Store the token in localStorage
             setLoggedIn(true); 
             setUsername(data.user.username);
-            setUserId(data.user.user_id);
+            setUserId(data.user._id);
             setUserRole(data.user.role);
-            localStorage.setItem('user_id', data.user.user_id);
-            localStorage.setItem('username', data.user.username);
             navigate('/home'); 
-            console.log(data)
         } catch (error) {
             console.error('Error logging in:', error.message);
             alert('Login failed');
@@ -85,6 +77,6 @@ const UserLogIn = ({ setLoggedIn, setUsername, setUserId, setUserRole }) => {
             </div>
         </div>
     );
-};
+}
 
-export default UserLogIn;
+export default UserLogIn

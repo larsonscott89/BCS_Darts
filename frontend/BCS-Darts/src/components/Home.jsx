@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default function Home({ userRole }) {
   const [home, setHome] = useState([]);
-  const [editId, setEditId] = useState(null);
+  const [editId, setEditId] = useState('');
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
   const [newTitle, setNewTitle] = useState('');
@@ -24,13 +24,18 @@ export default function Home({ userRole }) {
 
   const handleCreatePost = async () => {
     try {
+      const authToken = localStorage.getItem('token');
+  
       const response = await axios.post('http://localhost:3001/home', {
         title: newTitle,
         content: newContent
+      }, {
+        headers: {
+          Authorization: `Bearer ${authToken}` 
+        }
       });
-      // Add the newly created post to the home list
+  
       setHome([...home, response.data]);
-      // Clear the input fields after creating the post
       setNewTitle('');
       setNewContent('');
     } catch (error) {
@@ -46,32 +51,48 @@ export default function Home({ userRole }) {
 
   const handleSaveEdit = async () => {
     try {
-      // If editId exists, it means we're editing an existing post
+      const authToken = localStorage.getItem('token');
+      
+      if (!authToken) {
+        console.error('Token not found in localStorage');
+        return;
+      }
+      
       if (editId) {
         await axios.put(`http://localhost:3001/home/${editId}`, {
           title: editTitle,
           content: editContent
+        }, {
+          headers: {
+            Authorization: `Bearer ${authToken}` 
+          }
         });
       } else {
-        // If editId doesn't exist, it means we're creating a new post
         await axios.post(`http://localhost:3001/home`, {
           title: editTitle,
           content: editContent
+        }, {
+          headers: {
+            Authorization: `Bearer ${authToken}` 
+          }
         });
       }
       setEditId(null);
-      // Refresh the home list
-      const response = await axios.get('http://localhost:3001/home');
+      const response = await axios.get('http://localhost:3001/home', {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      });
       setHome(response.data);
     } catch (error) {
       console.error('Error saving home:', error.message);
+      alert('Failed to save home data');
     }
   }
 
   const handleDelete = async id => {
     try {
       await axios.delete(`http://localhost:3001/home/${id}`);
-      // Refresh the home list
       const response = await axios.get('http://localhost:3001/home');
       setHome(response.data);
     } catch (error) {
@@ -82,7 +103,6 @@ export default function Home({ userRole }) {
   return (
     <div>
       <h1>Home List</h1>
-      {/* Form to create new post */}
       {userRole === 'admin' && (
         <div>
           <input

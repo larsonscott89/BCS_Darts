@@ -27,7 +27,7 @@ const getHomeById = async (req, res) => {
 const createHome = async (req, res) => {
   try {
     const { title, content } = req.body;
-    const newHome = new Home({ title, content, author: req.session.userId });
+    const newHome = new Home({ title, content, author: req.session._id });
     await newHome.save();
     res.status(201).json(newHome);
   } catch (error) {
