@@ -10,6 +10,7 @@ const playerController = require('./controllers/Players')
 const sublistController = require('./controllers/Sublist')
 const scoresheetController = require('./controllers/Scoresheet')
 const userController = require('./controllers/Users')
+const homeController = require('./controllers/Home')
 const Users = require('./models/Users')
 
 const app = express()
@@ -81,6 +82,13 @@ app.delete('/scoresheet/:id', scoresheetController.deleteScoresheet)
 app.delete('/user/:id', userController.deleteUser)
 
 app.patch('/admin/promote/:id', checkAdminAuth, userController.promoteToAdmin)
+
+// Home functionality 
+app.post('/home', checkAdminAuth, homeController.createHome);
+app.get('/home', homeController.getAllHome);
+app.get('/home/:id', homeController.getHomeById);
+app.put('/home/:id', checkAdminAuth, homeController.updateHome);
+app.delete('/home/:id', checkAdminAuth, homeController.deleteHome);
 
 
 app.get('/*', async (req,res) => {

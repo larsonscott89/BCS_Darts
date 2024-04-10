@@ -39,7 +39,7 @@ const UserLogIn = ({ setLoggedIn, setUsername, setUserId, setUserRole }) => {
             setUserRole(data.user.role);
             localStorage.setItem('user_id', data.user.user_id);
             localStorage.setItem('username', data.user.username);
-            navigate('/'); 
+            navigate('/home'); 
             console.log(data)
         } catch (error) {
             console.error('Error logging in:', error.message);

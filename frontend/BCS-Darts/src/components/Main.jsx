@@ -42,7 +42,7 @@ export default function Main() {
         />
       </div>
       <Routes>
-        <Route path='/' element={<Home loggedIn={loggedIn} />} />
+      <Route path='/home' element={<Home loggedIn={loggedIn} userRole={userRole} />} />
         <Route path="/login" element={<UserLogIn setLoggedIn={setLoggedIn} setUsername={setUsername} setUserId={setUserId} setUserRole={setUserRole} />} />
         <Route path="/signup" element={<UserSignUp />} />
         <Route path='/leagues' element={<Leagues />} />

@@ -20,7 +20,7 @@ export default function Nav({ userRole }) {
             <Link to='#' className='menu-bars'>
               <AiIcons.AiOutlineClose />
             </Link>
-            <Link to='/' className='nav-text'>
+            <Link to='/home' className='nav-text'>
               Home
             </Link>
             <Link to='/leagues' className='nav-text'>
