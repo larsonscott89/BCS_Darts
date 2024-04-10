@@ -5,11 +5,12 @@ import Nav from './Nav'
 export default function Header({ loggedIn, username, handleSignOut, userRole }) {
   return (
     <div className='header'>
+      <Nav userRole={userRole}/>
       <div className="top-right-buttons">
         {loggedIn ? (
-          <div>
-            <span className="welcome-message">Welcome, {username}</span>
-            <button type="button" onClick={handleSignOut}>Sign Out</button>
+          <div className={'user-signed-in'}>
+            <button className={'signout-button'} type="button" onClick={handleSignOut}>Sign Out</button>
+            <span className={'welcome-message'}>Welcome, {username}</span>
           </div>
         ) : (
           <Link to="/signup">
@@ -21,7 +22,6 @@ export default function Header({ loggedIn, username, handleSignOut, userRole }) 
           </Link>
         )}
       </div>
-      <Nav userRole={userRole}/>
     </div>
   );
 }

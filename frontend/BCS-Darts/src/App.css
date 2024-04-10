@@ -1,0 +1,58 @@
+/* Header */
+.top-right-buttons, .user-signed-in, .signout-button, .welcome-message {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  text-align: center;
+}
+
+
+/* Home */
+.admin-home-title {
+  height: 4vh;
+}
+
+.admin-home-content {
+  height: 13vh;
+}
+
+.create-post-button {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.create-post {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 9vw;
+  height: 5vh;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.home-page-title, .home-page-content, .admin-home {
+  display: flex;
+  margin-left: 50px;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 85vw;
+}
+
+.home-buttons {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 85vw;
+  margin-left: 50px;
+}

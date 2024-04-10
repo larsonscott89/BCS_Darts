@@ -104,24 +104,28 @@ export default function Home({ userRole }) {
     <div>
       <h1>Home List</h1>
       {userRole === 'admin' && (
-        <div>
+        <div className={'admin-home'}>
           <input
+            className={'admin-home-title'}
             type="text"
             placeholder="Enter title"
             value={newTitle}
             onChange={e => setNewTitle(e.target.value)}
           />
           <textarea
+            className={'admin-home-content'}
             placeholder="Enter content"
             value={newContent}
             onChange={e => setNewContent(e.target.value)}
           />
-          <button onClick={handleCreatePost}>Create Post</button>
+          <div className={'create-post-button'}>
+          <button className={'create-post'} onClick={handleCreatePost}>Create Post</button>
+          </div>
         </div>
       )}
-      <ul>
+      <div>
         {home.map(post => (
-          <li key={post._id}>
+          <div key={post._id}>
             {editId === post._id ? (
               <>
                 <input
@@ -136,20 +140,20 @@ export default function Home({ userRole }) {
                 <button onClick={handleSaveEdit}>Save</button>
               </>
             ) : (
-              <>
-                <h3>{post.title}</h3>
-                <p>{post.content}</p>
+              <div className={'home-container'}>
+                <h3 className={'home-page-title'}>{post.title}</h3>
+                <p className={'home-page-content'}>{post.content}</p>
                 {userRole === 'admin' && (
-                  <>
+                  <div className={'home-buttons'}>
                     <button onClick={() => handleEdit(post._id, post.title, post.content)}>Edit</button>
                     <button onClick={() => handleDelete(post._id)}>Delete</button>
-                  </>
+                  </div>
                 )}
-              </>
+              </div>
             )}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

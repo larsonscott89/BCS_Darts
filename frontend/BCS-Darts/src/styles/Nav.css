@@ -1,9 +1,7 @@
 .header {
   background-color: #858585;
-  height: 100px;
-  width: 5000px;
-  display: flex;
-  justify-content: start;
+  height: 15vh;
+  width: 100vw;
   align-items: center;
   margin-top: -10px;
   margin-left: -10px;

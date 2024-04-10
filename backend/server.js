@@ -74,19 +74,6 @@ app.get('/protected', verifyToken, (req, res) => {
   res.json({ message: 'Protected route', user: req.user });
 });
 
-// const checkAdminAuth = (req, res, next) => {
-//   if (req.session && req.session.userId) {
-//     Users.findById(req.session.userId, (err, user) => {
-//       if (err || !user || user.role !== "admin") {
-//         return res.status(401).json({ error: 'Unauthorized' });
-//       }
-//       next();
-//     });
-//   } else {
-//     return res.status(401).json({ error: 'Unauthorized' });
-//   }
-// };
-
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`);
 });

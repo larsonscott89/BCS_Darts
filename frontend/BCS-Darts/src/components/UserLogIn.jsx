@@ -32,15 +32,13 @@ const UserLogIn = ({ setLoggedIn, setUsername, setUserId, setUserRole }) => {
                 throw new Error('Login failed');
             }
             const data = await response.json();
-            console.log(data); // Check the response data including the token
-            localStorage.setItem('token', data.token); // Ensure data.user.token is not undefined
+            console.log(data);
+            localStorage.setItem('token', data.token);
             console.log(data.token);
-            // Update state to reflect login
             setLoggedIn(true); 
             setUsername(data.user.username);
             setUserId(data.user._id);
             setUserRole(data.user.role);
-            // Navigate to the home page
             navigate('/home'); 
         } catch (error) {
             console.error('Error logging in:', error.message);
