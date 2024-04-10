@@ -10,6 +10,7 @@ const playerController = require('./controllers/Players')
 const sublistController = require('./controllers/Sublist')
 const scoresheetController = require('./controllers/Scoresheet')
 const userController = require('./controllers/Users')
+const Users = require('./models/Users')
 
 const app = express()
 
@@ -30,6 +31,19 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`)
 })
+
+const checkAdminAuth = (req, res, next) => {
+  if (req.session && req.session.userId) {
+    Users.findById(req.session.userId, (err, user) => {
+      if (err || !user || user.role !== 'admin') {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
+      next();
+    });
+  } else {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+}
 
 // Create
 app.post('/leagues', leagueController.createLeague)
@@ -66,7 +80,7 @@ app.delete('/sublist/:id', sublistController.deleteSublist)
 app.delete('/scoresheet/:id', scoresheetController.deleteScoresheet)
 app.delete('/user/:id', userController.deleteUser)
 
-app.patch('/users/:id', userController.promoteToAdmin)
+app.patch('/admin/promote/:id', checkAdminAuth, userController.promoteToAdmin)
 
 
 app.get('/*', async (req,res) => {

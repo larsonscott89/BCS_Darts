@@ -4,7 +4,7 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import '../styles/Nav.css';
 
-export default function Nav() {
+export default function Nav({ userRole }) {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
@@ -38,6 +38,17 @@ export default function Nav() {
             <Link to='/scoresheets' className='nav-text'>
               Scoresheets
             </Link>
+            {/* Render these links only if the user is an admin */}
+            {userRole === 'admin' && (
+              <>
+                {/* <Link to='/users' className='nav-text'>
+                  User Management
+                </Link> */}
+                <Link to='/admin/promotions' className='nav-text'>
+                  Admin Promotions
+                </Link>
+              </>
+            )}
           </li>
         </ul>
       </nav>

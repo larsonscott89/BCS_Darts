@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const UserLogIn = ({ setLoggedIn, setUsername, setUserId }) => {
+const UserLogIn = ({ setLoggedIn, setUsername, setUserId, setUserRole }) => {
     const navigate = useNavigate();
     const [user, setUser] = useState({
         username: '',
@@ -34,16 +34,18 @@ const UserLogIn = ({ setLoggedIn, setUsername, setUserId }) => {
             const data = await response.json();
             alert('Login successful');
             setLoggedIn(true); 
-            setUsername(user.username);
-            setUserId(data.user_id); 
-            localStorage.setItem('user_id', data.user_id);
-            localStorage.setItem('username', user.username);
+            setUsername(data.user.username);
+            setUserId(data.user.user_id);
+            setUserRole(data.user.role);
+            localStorage.setItem('user_id', data.user.user_id);
+            localStorage.setItem('username', data.user.username);
             navigate('/'); 
+            console.log(data)
         } catch (error) {
             console.error('Error logging in:', error.message);
             alert('Login failed');
         }
-    };
+    }
 
     const handleCancel = () => {
         setUser({

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './Nav'
 
-export default function Header({ loggedIn, username, handleSignOut }) {
+export default function Header({ loggedIn, username, handleSignOut, userRole }) {
   return (
     <div className='header'>
       <div className="top-right-buttons">
@@ -21,7 +21,7 @@ export default function Header({ loggedIn, username, handleSignOut }) {
           </Link>
         )}
       </div>
-      <Nav/>
+      <Nav userRole={userRole}/>
     </div>
   );
 }

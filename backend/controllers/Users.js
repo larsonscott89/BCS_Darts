@@ -71,8 +71,9 @@ const loginUser = async (req, res) => {
 
     req.session.userId = user._id;
     req.session.username = user.username;
+    user.password = null
 
-    return res.status(200).json({ message: 'Login successful' });
+    return res.status(200).json({ user });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -80,16 +81,16 @@ const loginUser = async (req, res) => {
 
 const promoteToAdmin = async (req, res) => {
   try {
-    const { id } = req.params
-    const user = await Users.findById(id)
+    const { id } = req.params;
+    const user = await Users.findById(id);
     if (!user) {
-      throw new Error('User not found')
+      return res.status(404).json({ error: 'User not found' });
     }
-    user.role = 'admin'
-    await user.save()
-    return res.status(200).json({ message: 'User promoted to admin successfully', user })
+    user.role = 'admin';
+    await user.save();
+    return res.status(200).json({ message: 'User promoted to admin successfully', user });
   } catch (error) {
-    return res.status(500).json({ error: error.message })
+    return res.status(500).json({ error: error.message });
   }
 }
 
