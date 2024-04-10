@@ -74,18 +74,18 @@ app.get('/protected', verifyToken, (req, res) => {
   res.json({ message: 'Protected route', user: req.user });
 });
 
-const checkAdminAuth = (req, res, next) => {
-  if (req.session && req.session.userId) {
-    Users.findById(req.session.userId, (err, user) => {
-      if (err || !user || user.role !== "admin") {
-        return res.status(401).json({ error: 'Unauthorized' });
-      }
-      next();
-    });
-  } else {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
-};
+// const checkAdminAuth = (req, res, next) => {
+//   if (req.session && req.session.userId) {
+//     Users.findById(req.session.userId, (err, user) => {
+//       if (err || !user || user.role !== "admin") {
+//         return res.status(401).json({ error: 'Unauthorized' });
+//       }
+//       next();
+//     });
+//   } else {
+//     return res.status(401).json({ error: 'Unauthorized' });
+//   }
+// };
 
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`);
@@ -126,14 +126,14 @@ app.delete('/sublist/:id', sublistController.deleteSublist);
 app.delete('/scoresheet/:id', scoresheetController.deleteScoresheet);
 app.delete('/user/:id', userController.deleteUser);
 
-app.patch('/admin/promote/:id', checkAdminAuth, userController.promoteToAdmin);
+app.patch('/admin/promote/:id', userController.promoteToAdmin);
 
 // Home functionality 
-app.post('/home', checkAdminAuth, homeController.createHome);
+app.post('/home', homeController.createHome);
 app.get('/home', homeController.getAllHome);
 app.get('/home/:id', homeController.getHomeById);
-app.put('/home/:id', checkAdminAuth, homeController.updateHome);
-app.delete('/home/:id', checkAdminAuth, homeController.deleteHome);
+app.put('/home/:id', homeController.updateHome);
+app.delete('/home/:id', homeController.deleteHome);
 
 app.get('/*', async (req,res) => {
   res.send('An error has occurred. Try again later (404)');

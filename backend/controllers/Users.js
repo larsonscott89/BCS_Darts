@@ -75,19 +75,16 @@ const loginUser = async (req, res) => {
       console.log('Generating token...');
       const token = jwt.sign({ _id: user._id }, JWT_SECRET);
       console.log('Token generated successfully:', token);
+      req.session._id = user._id;
+      req.session.username = user.username;
+      user.password = null;
+      console.log('User Object:', user);
       // Send token and user object in response
       return res.status(200).json({ token, user });
     } catch (error) {
       console.error('Error generating token:', error.message);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
-
-    req.session._id = user._id;
-    req.session.username = user.username;
-    user.password = null;
-
-    // Log the user object before sending it in the response
-    console.log('User Object:', user);
 
   } catch (error) {
     console.error('Error during login:', error.message);
