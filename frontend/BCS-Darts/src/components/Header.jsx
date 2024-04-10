@@ -9,8 +9,8 @@ export default function Header({ loggedIn, username, handleSignOut, userRole }) 
       <div className="top-right-buttons">
         {loggedIn ? (
           <div className={'user-signed-in'}>
+            <div className={'welcome-message'}>Welcome, {username}</div>
             <button className={'signout-button'} type="button" onClick={handleSignOut}>Sign Out</button>
-            <span className={'welcome-message'}>Welcome, {username}</span>
           </div>
         ) : (
           <Link to="/signup">

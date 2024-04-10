@@ -17,7 +17,7 @@ export default function Nav({ userRole }) {
       <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
         <ul className='nav-menu-items' onClick={showSidebar}>
           <li className='navbar-toggle'>
-            <Link to='#' className='menu-bars'>
+            <Link to='#' className='close-button'>
               <AiIcons.AiOutlineClose />
             </Link>
             <Link to='/home' className='nav-text'>
@@ -41,9 +41,6 @@ export default function Nav({ userRole }) {
             {/* Render these links only if the user is an admin */}
             {userRole === 'admin' && (
               <>
-                {/* <Link to='/users' className='nav-text'>
-                  User Management
-                </Link> */}
                 <Link to='/admin/promotions' className='nav-text'>
                   Admin Promotions
                 </Link>

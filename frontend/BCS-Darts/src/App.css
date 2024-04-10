@@ -1,9 +1,25 @@
 /* Header */
-.top-right-buttons, .user-signed-in, .signout-button, .welcome-message {
+.top-right-buttons {
   display: flex;
   justify-content: right;
   align-items: center;
-  text-align: center;
+  align-content: center;
+  margin-top: -40px;
+}
+
+.user-signed-in {
+  display: flex;
+}
+
+.signout-button {
+  border-radius: 5px;
+}
+
+.signout-button, .welcome-message {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  margin-right: 15px;
 }
 
 
