@@ -99,7 +99,7 @@ const UserSignUp = () => {
                         value={user.password}
                         onChange={handleChange}
                     />
-                    <label htmlFor="password">Password</label>
+                    <label className='username-label' htmlFor="password">Password</label>
 
                     <input className='signin-sheet'
                         type="password"
@@ -108,7 +108,7 @@ const UserSignUp = () => {
                         value={user.passwordConfirm}
                         onChange={handleChange}
                     />
-                    <label htmlFor="passwordConfirm">Confirm password</label>
+                    <label className='username-label' htmlFor="passwordConfirm">Confirm password</label>
 
                     <button type="submit">Sign Up</button>
                     <button type="button" className="cancel" onClick={handleCancel}>
@@ -118,7 +118,7 @@ const UserSignUp = () => {
                     {user.valid && <p className="valid">Passwords match.</p>}
                     <div className="or-line">
                         <hr className="line" />
-                        <p>or</p>
+                        <p className='username-label'>or</p>
                         <hr className="line" />
                     </div>
                     <Link to="/login">
