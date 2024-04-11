@@ -5,21 +5,21 @@ const { JWT_SECRET } = require('../config')
 
 const createUser = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password } = req.body
 
-    const existingUser = await Users.findOne({ username });
+    const existingUser = await Users.findOne({ username })
     if (existingUser) {
-      return res.status(400).json({ error: 'Username already exists' });
+      return res.status(400).json({ error: 'Username already exists' })
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10)
 
-    const newUser = new Users({ username, password: hashedPassword });
-    await newUser.save();
+    const newUser = new Users({ username, password: hashedPassword })
+    await newUser.save()
 
-    return res.status(201).json({ user: newUser });
+    return res.status(201).json({ user: newUser })
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message })
   }
 }
 
@@ -59,51 +59,51 @@ const deleteUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password } = req.body
 
-    const user = await Users.findOne({ username });
+    const user = await Users.findOne({ username })
     if (!user) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: 'Invalid credentials' })
     }
 
-    const passwordMatch = await bcrypt.compare(password, user.password);
+    const passwordMatch = await bcrypt.compare(password, user.password)
     if (!passwordMatch) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: 'Invalid credentials' })
     }
 
     try {
-      console.log('Generating token...');
-      const token = jwt.sign({ _id: user._id }, JWT_SECRET);
-      console.log('Token generated successfully:', token);
-      req.session._id = user._id;
-      req.session.username = user.username;
-      user.password = null;
-      console.log('User Object:', user);
+      console.log('Generating token...')
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET)
+      console.log('Token generated successfully:', token)
+      req.session._id = user._id
+      req.session.username = user.username
+      user.password = null
+      console.log('User Object:', user)
       // Send token and user object in response
-      return res.status(200).json({ token, user });
+      return res.status(200).json({ token, user })
     } catch (error) {
-      console.error('Error generating token:', error.message);
-      return res.status(500).json({ error: 'Internal Server Error' });
+      console.error('Error generating token:', error.message)
+      return res.status(500).json({ error: 'Internal Server Error' })
     }
 
   } catch (error) {
-    console.error('Error during login:', error.message);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Error during login:', error.message)
+    return res.status(500).json({ error: 'Internal Server Error' })
   }
 }
 
 const promoteToAdmin = async (req, res) => {
   try {
-    const { id } = req.params;
-    const user = await Users.findById(id);
+    const { id } = req.params
+    const user = await Users.findById(id)
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'User not found' })
     }
-    user.role = 'admin';
-    await user.save();
-    return res.status(200).json({ message: 'User promoted to admin successfully', user });
+    user.role = 'admin'
+    await user.save()
+    return res.status(200).json({ message: 'User promoted to admin successfully', user })
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message })
   }
 }
 

@@ -418,7 +418,7 @@ return (
                     onChange={(e) => setFormData({ ...formData, league_id: e.target.value })}/>
             </div>
             <h2 className='team-label'>Team 2</h2>
-          <select className='team-select' value={selectedTeam2} onChange={(e) => handleTeamChange(e, 1)}>
+          <select className='team-select' value={selectedTeam2} onChange={(e) => handleTeamChange(e, 2)}>
             <option value="">Select Team</option>
             {teams.map(team => (
               <option key={team._id} value={team._id}>{team.team_name}</option>

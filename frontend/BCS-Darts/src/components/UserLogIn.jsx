@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const UserLogIn = ({ setLoggedIn, setUsername, setUserId, setUserRole }) => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const [user, setUser] = useState({
         username: '',
         password: '',
-    });
+    })
 
     const handleChange = (e) => {
         setUser({
             ...user,
             [e.target.id]: e.target.value,
-        });
-    };
+        })
+    }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         try {
             const response = await fetch('http://localhost:3001/users/login', {
                 method: 'POST',
@@ -27,22 +27,22 @@ const UserLogIn = ({ setLoggedIn, setUsername, setUserId, setUserRole }) => {
                     username: user.username,
                     password: user.password,
                 }),
-            });
+            })
             if (!response.ok) {
-                throw new Error('Login failed');
+                throw new Error('Login failed')
             }
-            const data = await response.json();
-            console.log(data);
-            localStorage.setItem('token', data.token);
-            console.log(data.token);
-            setLoggedIn(true); 
-            setUsername(data.user.username);
-            setUserId(data.user._id);
-            setUserRole(data.user.role);
-            navigate('/home'); 
+            const data = await response.json()
+            console.log(data)
+            localStorage.setItem('token', data.token)
+            console.log(data.token)
+            setLoggedIn(true);
+            setUsername(data.user.username)
+            setUserId(data.user._id)
+            setUserRole(data.user.role)
+            navigate('/home');
         } catch (error) {
-            console.error('Error logging in:', error.message);
-            alert('Login failed');
+            console.error('Error logging in:', error.message)
+            alert('Login failed')
         }
     }
 
@@ -50,8 +50,8 @@ const UserLogIn = ({ setLoggedIn, setUsername, setUserId, setUserRole }) => {
         setUser({
             username: '',
             password: '',
-        });
-    };
+        })
+    }
 
     return (
         <div className="login-page-container">
@@ -83,7 +83,7 @@ const UserLogIn = ({ setLoggedIn, setUsername, setUserId, setUserRole }) => {
                 </form>
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default UserLogIn
