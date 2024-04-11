@@ -1,5 +1,6 @@
 .header {
   background-color: #858585;
+  background-image: image('bcsdarts home.png');
   height: 15vh;
   width: 100vw;
   margin-top: -10px;
@@ -79,4 +80,15 @@
   flex-direction: column;
   justify-content: start;
   align-items: center;
+}
+
+@media (max-width: 480px) {
+  .header {
+    background-color: #858585;
+    background-image: image('bcsdarts home.png');
+    height: 15vh;
+    width: 100vw;
+    margin-top: -10px;
+    margin-left: -10px;
+  }
 }
