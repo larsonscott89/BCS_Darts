@@ -93,8 +93,8 @@ export default function Signup() {
 
   return (
     <div>
-      <h1>Team Signup</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className='signin-label'>Team Signup</h1>
+      <form className='signin-form' onSubmit={handleSubmit}>
         <div>
           <label htmlFor="league_id">Select League:</label>
           <select

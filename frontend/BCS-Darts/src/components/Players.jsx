@@ -25,24 +25,21 @@ export default function Players() {
   }
 
   return (
-    <div>
-      <h1>Players</h1>
+    <div className='players-container'>
       <div>
+      <h1 className='players-label'>Players</h1>
         {teams.map((team, index) => (
-          <div key={team._id || index}>
-            <h2>{team.team_name}</h2>
-            <h3>Team Captain:</h3>
-            <h4>{team.team_captain}</h4>
-            {team.captain_cell_number && <h4>Cell Number: {team.captain_cell_number}</h4>}
-            {team.captain_email && <h4>Email: {team.captain_email}</h4>}
-            <h4>Players:</h4>
+          <div className='players-captain' key={team._id || index}>
+            <h4 className='player-name'>{team.team_captain}</h4>
+            {team.captain_cell_number && <h4 className='player-cell'>Cell Number: {team.captain_cell_number}</h4>}
+            {team.captain_email && <h4 className='player-email'>Email: {team.captain_email}</h4>}
             {team.members && team.members.length > 0 ? (
-              <div>
+              <div className='players-member'>
                 {team.members.map((player, idx) => (
                   <div key={player._id || idx}>
-                    <h4>{player.name}</h4>
-                    {player.cell_number && <h4>Cell Number: {player.cell_number}</h4>}
-                    {player.email && <h4>Email: {player.email}</h4>}
+                    <h4 className='player-name'>{player.name}</h4>
+                    {player.cell_number && <h4 className='player-cell'>Cell Number: {player.cell_number}</h4>}
+                    {player.email && <h4 className='player-email'>Email: {player.email}</h4>}
                   </div>
                 ))}
               </div>

@@ -29,9 +29,8 @@ export default function Team() {
 
   return (
     <div className='teams-container'>
-      <div>
-        <h1 className='teams-label'>Teams</h1>
         <div>
+          <h1 className='teams-label'>Teams</h1>
           {teams.map((team, index) => {
             const foundLeague = leagues.find((league) => league._id === team.league_id)
             return (
@@ -50,14 +49,16 @@ export default function Team() {
                     <div>Email: {team.members.find((member) => member.is_captain).email}</div>
                   )}
                 </div>
-                <h5>Team Members:</h5>
+                <h5 className='team-members-label'>Team Members:</h5>
                 {team.members && team.members.length > 0 ? (
-                  <div>
+                  <div className='team-members'>
                     {team.members.map((teamMember, idx) => (
                       <div key={idx}>
                         {teamMember.name}
-                        {teamMember.cell_number && <span> - Cell Number: {teamMember.cell_number}</span>}
+                        <div className='team-cell-email'>
+                        {teamMember.cell_number && <span> Cell Number: {teamMember.cell_number}</span>}
                         {teamMember.email && <span> - Email: {teamMember.email}</span>}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -69,6 +70,5 @@ export default function Team() {
           })}
         </div>
       </div>
-    </div>
   )
 }

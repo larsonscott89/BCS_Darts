@@ -310,8 +310,14 @@ body {
             align-items: center;
           }
 
+          .team-list {
+            border: 2px solid black;
+            width: 50vw;
+          }
+
           .teams-label {
             font-size: 46px;
+            text-decoration: underline;
           }
 
           .team-names {
@@ -325,12 +331,54 @@ body {
           }
 
           .team-captain-label {
-            font-size: 18px;
+            font-size: 20px;
             text-decoration: underline;
           }
           .captain-name {
-            font-size: 18px;
+            font-size: 20px;
             margin-top: -25px;
+          }
+          .team-members-label {
+            font-size: 18px;
+            text-decoration: underline;
+          }
+          .team-members {
+            font-size: 20px;
+            margin-top: -25px;
+            margin-bottom: 40px;
+          }
+
+          .team-cell-email {
+            font-size: 16px;
+            text-decoration: underline;
+            margin-bottom: 10px;
+          }
+
+/* Players */
+          .players-container {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+          }
+
+          .players-label {
+            font-size: 46px;
+            text-decoration: underline;
+          }
+
+          .player-cell,
+          .player-email {
+            text-decoration: none;
+            margin-top: -20px;
+          }
+
+          .players-member {
+            border: 1px dashed black;
+          }
+
+          .player-name {
+            font-size: 20px;
+            text-decoration: underline;
           }
 
 
