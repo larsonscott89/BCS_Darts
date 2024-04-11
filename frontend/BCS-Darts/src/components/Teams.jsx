@@ -28,44 +28,46 @@ export default function Team() {
   }
 
   return (
-    <div>
-      <h1>Teams</h1>
+    <div className='teams-container'>
       <div>
-        {teams.map((team, index) => {
-          const foundLeague = leagues.find((league) => league._id === team.league_id)
-          return (
-            <div className='team-list' key={index}>
-              <h1>{team.team_name}</h1>
-              <h3>
-                League: {foundLeague ? foundLeague.league_name : 'Unknown League'}
-              </h3>
-              <h5>Team Captain:</h5>
-              <ul>
-                <li>{team.members.find((member) => member.is_captain)?.name}</li>
-                {team.members.find((member) => member.is_captain)?.cell_number && (
-                  <li>Cell Number: {team.members.find((member) => member.is_captain).cell_number}</li>
+        <h1 className='teams-label'>Teams</h1>
+        <div>
+          {teams.map((team, index) => {
+            const foundLeague = leagues.find((league) => league._id === team.league_id)
+            return (
+              <div className='team-list' key={index}>
+                <h1 className='team-names'>{team.team_name}</h1>
+                <h3 className='league-title'>
+                  League: {foundLeague ? foundLeague.league_name : 'Unknown League'}
+                </h3>
+                <h5 className='team-captain-label'>Team Captain:</h5>
+                <div>
+                  <div className='captain-name'>{team.members.find((member) => member.is_captain)?.name}</div>
+                  {team.members.find((member) => member.is_captain)?.cell_number && (
+                    <div>Cell Number: {team.members.find((member) => member.is_captain).cell_number}</div>
+                  )}
+                  {team.members.find((member) => member.is_captain)?.email && (
+                    <div>Email: {team.members.find((member) => member.is_captain).email}</div>
+                  )}
+                </div>
+                <h5>Team Members:</h5>
+                {team.members && team.members.length > 0 ? (
+                  <div>
+                    {team.members.map((teamMember, idx) => (
+                      <div key={idx}>
+                        {teamMember.name}
+                        {teamMember.cell_number && <span> - Cell Number: {teamMember.cell_number}</span>}
+                        {teamMember.email && <span> - Email: {teamMember.email}</span>}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p>No team members</p>
                 )}
-                {team.members.find((member) => member.is_captain)?.email && (
-                  <li>Email: {team.members.find((member) => member.is_captain).email}</li>
-                )}
-              </ul>
-              <h5>Team Members:</h5>
-              {team.members && team.members.length > 0 ? (
-                <ul>
-                  {team.members.map((teamMember, idx) => (
-                    <li key={idx}>
-                      {teamMember.name}
-                      {teamMember.cell_number && <span> - Cell Number: {teamMember.cell_number}</span>}
-                      {teamMember.email && <span> - Email: {teamMember.email}</span>}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>No team members</p>
-              )}
-            </div>
-          )
-        })}
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   )

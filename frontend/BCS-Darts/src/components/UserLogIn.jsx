@@ -56,18 +56,18 @@ const UserLogIn = ({ setLoggedIn, setUsername, setUserId, setUserRole }) => {
     return (
         <div className="login-page-container">
             <div className="form">
-                <h1>Login</h1>
-                <form onSubmit={handleSubmit}>
-                    <input
+                <h1 className='signin-label'>Login</h1>
+                <form className='signin-form' onSubmit={handleSubmit}>
+                    <input className='signin-sheet'
                         type="text"
                         placeholder="Username"
                         id="username"
                         value={user.username}
                         onChange={handleChange}
                     />
-                    <label htmlFor="username">Username</label>
+                    <label className='username-label' htmlFor="username">Username</label>
 
-                    <input
+                    <input className='signin-sheet'
                         type="password"
                         placeholder="Password"
                         id="password"

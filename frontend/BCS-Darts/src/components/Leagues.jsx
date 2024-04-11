@@ -17,16 +17,18 @@ export default function Leagues() {
   }, [])
 
   return (
-    <div>
-      <h1>Leagues</h1>
+    <div className='league-container'>
       <div>
-        {leagues.map((league, index) => (
-          <div className='league list' key={index}>
-            <h2>{league.league_name}</h2>
-            <p>Number of players: {league.number_of_players}</p>
-            <p>Season: {league.season}</p>
-          </div>
-        ))}
+        <h1 className='league-label'>Leagues</h1>
+        <div>
+          {leagues.map((league, index) => (
+            <div className='league-list' key={index}>
+              <h2 className='league-name'>{league.league_name}</h2>
+              <p className='number-players'>Number of players: {league.number_of_players}</p>
+              <p className='season'>Season: {league.season}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )

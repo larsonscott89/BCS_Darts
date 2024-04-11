@@ -1,3 +1,8 @@
+body {
+  background-color: #650000;
+  color: #ccb4b4;
+}
+
 /* Header */
       .top-right-buttons {
         display: flex;
@@ -91,23 +96,27 @@
           flex-direction: column;
           align-items: center;
           margin-top: 10px;
+          color: #ccb4b4;
         }
 
         .team-select {
           height: 3vh;
-          width: 9vw;
+          width: 11vw;
+          background-color: #bababaea;
         }
 
         .team1-container {
-          margin-right: 150px;
+          margin-right: 130px;
+          margin-left: 40px;
         }
 
         .team1-container,
         .team2-container {
-          width: 40vw;
+          width: 45%;
           display: flex;
           flex-direction: column;
           align-items: center;
+          text-align: center;
         }
 
         .cricket-container, .five-container, .seven-container {
@@ -127,27 +136,30 @@
           width: 8vw;
           margin-bottom: 5px;
           margin-top: 5px;
+          color: #ccb4b4;
         }
 
         .player-select {
           width: 150px;
           height: 4vh;
-          margin-top: 20px;
+          margin-top: 25px;
           margin-right: 25px;
-          margin-left: -15px;
+          background-color: #bababaea;
         }
 
-        .qp-input, .number-darts-input, .highpoint-input, .whitehorse-input {
-          width: 5vw;
-          height: 2vh;
+        .qp-input, .number-darts-input, .highpoint-input, .whitehorse-input, .results-input, .week-input {
+          width: 6vw;
+          height: 3vh;
           display: flex;
           flex-direction: column;
           align-items: center;
+          background-color: #bababaea;
         }
 
         .total-wins-input {
           width: 5vw;
           height: 5vh;
+          background-color: #bababaea;
         }
 
         .score-submit-button {
@@ -168,14 +180,403 @@
           border-radius: 5px;
         }
 
+/* sign-up */
+          .signup-page-container {
+            padding-top: 5px;
+            padding-bottom:5px;
+          }
 
-@media (max-width: 480px) {
-  .header {
-    background-color: #858585;
-    background-image: image('bcsdarts home.png');
-    height: 15vh;
-    width: 100vw;
-    margin-top: -10px;
-    margin-left: -10px;
-  }
-}
+          .login-page-container {
+            padding-top: 155px;
+            padding-bottom: 402px;
+          }
+
+          form {
+            background-color: white;
+            color: #222222;
+            padding: 1.5rem 2rem;
+            text-align: left;
+          }
+
+          button,
+          .signin-sheet {
+            border: none;
+            font-size: 1rem;
+          }
+
+          button {
+            background-color: #1e90ff;
+            color: #ffffff;
+            padding: 0.75rem 1rem;
+            margin-left: 1rem;
+            transition: box-shadow 0.3s ease-in, background-color 0.3s ease-in;
+          }
+
+          button + button {
+            margin-left: 1rem;
+          }
+
+          button:focus {
+            box-shadow: 0 0 5px#1e90ff;
+            outline: none;
+          }
+
+          button:hover {
+            background-color: #1880e7;
+          }
+
+          .signin-sheet {
+            border-bottom: 1px solid #532727;
+            display: block;
+            margin: 1.5rem 0 0.5rem;
+            padding: 0.5rem 0;
+            transition: border 0.3s ease-in;
+          }
+
+          .signin-form {
+            background-color: white;
+            color: #222222;
+            padding: 1.5rem 2rem;
+            text-align: left;
+          }
+
+          .signin-label {
+            
+            font-weight: lighter;
+            margin: 0;
+            padding: 2rem 2rem 1rem;
+            text-align: center;
+          }
+
+          .signin-sheet:focus + .username-label,
+          .signin-sheet:not(:placeholder-shown) + .username-label {
+            opacity: 1;
+            transform: translateY(-4.25rem);
+          }
+
+          .signin-sheet[type='text'],
+          .signin-sheet[type='password'] {
+            width: 100%;
+          }
+
+          .cancel {
+            background-color: #ff0000;
+          }
+
+          .cancel:focus {
+            box-shadow: 0 0 5px #db0101;
+            outline: none;
+          }
+
+          .cancel:hover {
+            background-color: #ff0000;
+          }
+
+          .signin-form {
+            background: url('https://w.forfun.com/fetch/c5/c561c642dd2def1413625729bcdde684.jpeg?h=900&r=0.5')
+                no-repeat top 0rem right 0rem / 100%;
+            border: 1px solid #949494;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+            color: #007808;
+            font-size: 26px;
+            width: 100%;
+            margin: auto;
+            max-width: 400px;
+            text-align: center;
+          }
+
+/* Leagues */
+          .league-container {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+          }
+          .league-label {
+            font-size: 46px;
+          }
+          .league-list {
+            font-size: 22px;
+          }
+          .league-name {
+            text-decoration: underline;
+          }
+
+/* Teams */
+          .teams-container {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+          }
+
+          .teams-label {
+            font-size: 46px;
+          }
+
+          .team-names {
+            font-size: 26px;
+            text-decoration: underline;
+          }
+
+          .league-title {
+            font-size: 22px;
+            margin-top: -15px;
+          }
+
+          .team-captain-label {
+            font-size: 18px;
+            text-decoration: underline;
+          }
+          .captain-name {
+            font-size: 18px;
+            margin-top: -25px;
+          }
+
+
+        @media (max-width: 480px) {
+          body {
+            background-color: #650000;
+          }
+        
+          /* Header */
+          .top-right-buttons {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 10px;
+          }
+        
+          .user-signed-in {
+            display: flex;
+            align-items: center;
+          }
+        
+          .signout-button {
+            border-radius: 5px;
+            margin-left: 10px;
+          }
+        
+          .welcome-message {
+            margin-right: 10px;
+          }
+        
+          /* Home */
+          .create-post-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+          }
+        
+          .create-post {
+            border-radius: 5px;
+            padding: 10px;
+            width: 80%;
+            max-width: 300px; 
+            text-align: center;
+            background-color: #fff; 
+            color: #000; 
+          }
+        
+          .home-container,
+          .home-page-title,
+          .home-page-content,
+          .admin-home {
+            margin-left: 10px;
+            width: calc(100% - 20px); 
+            max-width: 400px; 
+          }
+        
+          .home-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            margin-left: 10px;
+            width: calc(100% - 20px); 
+            max-width: 400px; 
+          }
+        
+          /* Scoresheet */
+          .scoresheet-container {
+            flex-direction: column;
+            align-items: center;
+          }
+        
+          .team1-container,
+          .team2-container {
+            width: 100%; 
+            max-width: 400px; 
+            margin: 10px 0; 
+          }
+        
+          .team2-container {
+            margin-top: 0; 
+          }
+        
+          .player-select {
+            width: 60%;
+            max-width: 300px; 
+            margin-top: 40px;
+          }
+
+          .team-label {
+            margin: 0 auto;
+            margin-top: 20px;
+            font-size: large;
+          }
+      
+          .qp-label,
+          .number-darts-label,
+          .highpoint-label,
+          .results-label,
+          .whitehorse-label {
+            width: 79%;
+            margin-top: 10px;
+            font-size: small;
+          }
+
+          .week-label, .total-wins-label {
+            display: flex;
+            margin: 0 auto;
+            margin-top: 20px;
+          }
+
+          .qp-input,
+          .number-darts-input,
+          .highpoint-input,
+          .whitehorse-input,
+          .week-input,
+          .team-select {
+            width: 60%;
+            height: 30%;
+            max-width: 300px; 
+            margin-top: 5px;
+          }
+
+          .week-input {
+            margin: 0 auto;
+          }
+          .results-input {
+            width: 13vw;
+            margin-top: 25px;
+          }
+        
+          .total-wins-input {
+            width: 50%;
+            height: 3vh;
+            max-width: 300px;
+            margin-top: 10px;
+          }
+
+          .score-submit-button {
+            width: 50%;
+            max-width: 300px; 
+            margin-top: 20px;
+            margin-bottom: 200px;
+          }
+        }
+
+/* signup */
+        .signup-page-container {
+          padding-top: 5px;
+          padding-bottom:5px;
+        }
+
+        .login-page-container {
+          padding-top: 155px;
+          padding-bottom: 402px;
+        }
+
+        form {
+          background-color: white;
+          color: #222222;
+          padding: 1.5rem 2rem;
+          text-align: left;
+        }
+
+        button,
+        .signin-sheet {
+          border: none;
+          font-size: 1rem;
+        }
+
+        button {
+          background-color: #1e90ff;
+          color: #ffffff;
+          padding: 0.75rem 1rem;
+          margin-left: 1rem;
+          transition: box-shadow 0.3s ease-in, background-color 0.3s ease-in;
+        }
+
+        button + button {
+          margin-left: 1rem;
+        }
+
+        button:focus {
+          box-shadow: 0 0 5px#1e90ff;
+          outline: none;
+        }
+
+        button:hover {
+          background-color: #1880e7;
+        }
+
+        .signin-sheet {
+          border-bottom: 1px solid #532727;
+          display: block;
+          margin: 1.5rem 0 0.5rem;
+          padding: 0.5rem 0;
+          transition: border 0.3s ease-in;
+        }
+
+        .signin-form {
+          background-color: white;
+          color: #222222;
+          padding: 1.5rem 2rem;
+          text-align: left;
+        }
+
+        .signin-label {
+          
+          font-weight: lighter;
+          margin: 0;
+          padding: 2rem 2rem 1rem;
+          text-align: center;
+        }
+
+        .signin-sheet:focus + .username-label,
+        .signin-sheet:not(:placeholder-shown) + .username-label {
+          opacity: 1;
+          transform: translateY(-4.25rem);
+        }
+
+        .signin-sheet[type='text'],
+        .signin-sheet[type='password'] {
+          width: 80%;
+        }
+
+        .cancel {
+          background-color: #ff0000;
+        }
+
+        .cancel:focus {
+          box-shadow: 0 0 5px #db0101;
+          outline: none;
+        }
+
+        .cancel:hover {
+          background-color: #ff0000;
+        }
+
+        .signin-form {
+          background: url('https://w.forfun.com/fetch/c5/c561c642dd2def1413625729bcdde684.jpeg?h=900&r=0.5')
+              no-repeat top 0rem right 0rem / 100%;
+          border: 1px solid #949494;
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+          color: #007808;
+          font-size: 26px;
+          width: 80%;
+          margin: auto;
+          max-width: 400px;
+          text-align: center;
+        }
