@@ -92,12 +92,12 @@ export default function Signup() {
   }
 
   return (
-    <div>
-      <h1 className='signin-label'>Team Signup</h1>
-      <form className='signin-form' onSubmit={handleSubmit}>
+    <div className="team-signup-container">
+      <h1 className='team-signin-label'>Team Signup</h1>
+      <form className='team-signin-form' onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="league_id">Select League:</label>
-          <select
+          <label className='league-select-label' htmlFor="league_id">Select League:</label>
+          <select       className='league-select-drop'
             id="league_id"
             name="league_id"
             value={formData.league_id}
@@ -113,7 +113,7 @@ export default function Signup() {
         </div>
         <div>
           <label htmlFor="team_name">Team Name:</label>
-          <input
+          <input className='team-name-text'
             type="text"
             id="team_name"
             name="team_name"
@@ -125,7 +125,7 @@ export default function Signup() {
           <label>Team Members:</label>
           {formData.members.map((member, index) => (
             <div key={index}>
-              <input
+              <input className='team-members-input'
                 type="text"
                 value={member.name}
                 onChange={(e) => {
@@ -139,7 +139,7 @@ export default function Signup() {
                 name={`members[${index}].name`}
                 placeholder={`Member ${index + 1} Name`}
               />
-              <input
+              <input className='team-members-input'
                 type="text"
                 value={member.cell_number}
                 onChange={(e) => {
@@ -153,7 +153,7 @@ export default function Signup() {
                 name={`members[${index}].cell_number`}
                 placeholder={`Member ${index + 1} Cell Number`}
               />
-              <input
+              <input className='team-members-input'
                 type="email"
                 value={member.email}
                 onChange={(e) => {
@@ -168,7 +168,7 @@ export default function Signup() {
                 placeholder={`Member ${index + 1} Email`}
               />
               <label>
-                <input
+                <input className='checkbox'
                   type="checkbox"
                   checked={member.is_captain}
                   onChange={() => handleCaptainCheckboxChange(index)}
@@ -178,7 +178,7 @@ export default function Signup() {
             </div>
           ))}
         </div>
-        <button type="submit">Sign Up</button>
+        <button className='team-signup-submit' type="submit">Sign Up</button>
       </form>
     </div>
   )
