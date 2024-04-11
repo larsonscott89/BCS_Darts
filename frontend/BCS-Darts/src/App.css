@@ -155,6 +155,10 @@ body {
           color: #ccb4b4;
         }
 
+        .number-darts-label {
+          margin-top: -3px
+        }
+
         .player-select {
           width: 150px;
           height: 4vh;
