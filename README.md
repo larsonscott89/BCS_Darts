@@ -42,6 +42,6 @@
 ##### Create a calendar that can be edited by an admin user.
 ##### Allow when someone submits a Scoresheet that the information sticks with the team members ID to be used for stats later.
 
-### Cites
+### Sources
 ##### ChatGPT helped with Auth. Helped me with where 'localStorage.setItem('token', data.token)' and 'Authorization: `Bearer ${authToken}`' needed to go as well as some error messaging. 
 ##### Used portions of our Project 3 code. The initial functions for logging in and signing up I used from that.
