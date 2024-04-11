@@ -63,11 +63,27 @@ body {
 
       .home-page-title, .home-page-content, .admin-home {
         display: flex;
-        margin-left: 50px;
+        margin-left: 80px;
         flex-direction: column;
         justify-content: center;
         text-align: center;
         width: 85vw;
+      }
+
+      .home-page-title {
+        font-size: 46px;
+      }
+
+      .home-page-content {
+        font-size: 30px;
+      }
+
+      .home-label {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        font-size: 44px;
+        text-decoration: underline;
       }
 
       .home-buttons {

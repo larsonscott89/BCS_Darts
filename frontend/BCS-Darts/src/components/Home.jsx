@@ -101,8 +101,8 @@ export default function Home({ userRole }) {
   };
 
   return (
-    <div>
-      <h1>Home List</h1>
+    <div className='home-container'>
+      <h1 className='home-label'>Home List</h1>
       {userRole === 'admin' && (
         <div className={'admin-home'}>
           <input
